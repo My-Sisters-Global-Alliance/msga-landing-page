@@ -4,6 +4,21 @@ title: Our Work
 permalink: /our-work/
 description: "Explore the work MySGA (My Sisters Global Alliance) is developing to educate, equip, and empower women and girls through mentorship, leadership development, education, humanitarian outreach, workforce readiness, and advocacy."
 ---
+<style>
+.active-campaigns{margin:8px 0 56px;}
+.active-campaigns-title{font-size:0.85rem;color:var(--blue);text-transform:uppercase;letter-spacing:0.12em;font-weight:800;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--champagne);}
+.active-campaigns-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media(min-width:820px){.active-campaigns-grid{grid-template-columns:repeat(auto-fit,minmax(440px,1fr));}}
+.active-campaign-card{display:flex;flex-wrap:wrap;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden;}
+.active-campaign-image{flex:1 1 220px;min-height:220px;}
+.active-campaign-image img{width:100%;height:100%;object-fit:cover;display:block;}
+.active-campaign-body{flex:1 1 260px;padding:30px 28px;display:flex;flex-direction:column;justify-content:center;gap:8px;}
+.active-campaign-category{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);font-weight:700;}
+.active-campaign-body h3{color:var(--navy);font-size:1.4rem;}
+.active-campaign-tagline{color:var(--muted);font-size:1rem;}
+.active-campaign-body .btn{align-self:flex-start;margin-top:10px;}
+</style>
+
   <section class="page-hero">
     <div class="wrap">
       <div class="hero-visual-logo" style="display:flex;"><img src="{{ '/assets/logo-blue.png' | relative_url }}" alt="MySGA — My Sisters Global Alliance"></div>
@@ -16,6 +31,27 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
   <section class="programs on-white" id="our-work">
     <div class="wrap">
       <p class="work-intro">Every initiative we develop supports one or more of our three commitments: Educate, Equip and Empower. Together, these areas create pathways for women and girls to strengthen their lives, develop their leadership, and thrive.</p>
+
+      {% if site.data.active_campaigns and site.data.active_campaigns.size > 0 %}
+      <div class="active-campaigns">
+        <h3 class="active-campaigns-title">Active Now</h3>
+        <div class="active-campaigns-grid">
+          {% for campaign in site.data.active_campaigns %}
+          <div class="active-campaign-card">
+            <div class="active-campaign-image">
+              <img src="{{ campaign.image | relative_url }}" alt="">
+            </div>
+            <div class="active-campaign-body">
+              <span class="active-campaign-category">{{ campaign.category }}</span>
+              <h3>{{ campaign.title }}</h3>
+              <p class="active-campaign-tagline">{{ campaign.tagline }}</p>
+              <a href="{{ campaign.button_url | relative_url }}" class="btn btn-pink">{{ campaign.button_text }}</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
 
       <div class="work-group">
         <h3 class="work-group-title">Educate</h3>

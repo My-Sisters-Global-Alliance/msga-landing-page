@@ -2,6 +2,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% if page.title %}{{ page.title }} | MySGA{% else %}MySGA | Educate. Equip. Empower.{% endif %}</title>
 <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+{% if page.og_image %}
+<meta property="og:title" content="{% if page.title %}{{ page.title }} | MySGA{% else %}MySGA{% endif %}">
+<meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ page.og_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }} | MySGA{% else %}MySGA{% endif %}">
+<meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="twitter:image" content="{{ page.og_image | absolute_url }}">
+{% endif %}
 <meta name="theme-color" content="#083E7D">
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon-32x32.png' | relative_url }}">
@@ -31,6 +42,9 @@ to Al Fresco once licensed.
 --orange:#CD7817;
 --ivory:#FFFFFF;
 --champagne:#FBF3D9;
+--pink:#F7B6CF;
+--pink-deep:#B83A6E;
+--pink-accent:#C2477A;
 --teal:#2C69B1;
 --text:#1C2430;
 --muted:#4B5563;
@@ -94,6 +108,8 @@ white-space:nowrap;
 .btn-outline{background:transparent;border-color:rgba(255,255,255,0.7);color:var(--ivory);}
 .btn-outline:hover{background:rgba(255,255,255,0.12);border-color:#fff;transform:translateY(-3px);}
 .btn-ghost{background:transparent;border-color:var(--navy);color:var(--navy);}
+.btn-pink{background:var(--pink);color:var(--navy);box-shadow:var(--shadow-sm);}
+.btn-pink:hover{background:#ffd0e3;transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .btn-ghost:hover{background:var(--navy);color:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .btn-sm{padding:10px 20px;font-size:0.82rem;border-radius:999px;}
 

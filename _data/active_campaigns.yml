@@ -1,0 +1,8 @@
+# Campaigns shown in the "Active Now" row on the Our Work page. Add another
+# entry here to add another card — no template changes needed.
+- title: "#CheckInSis"
+  category: "A Breast Cancer Awareness Month campaign"
+  tagline: "Check yourself. Then check on her."
+  image: "/assets/checkinsis-campaign.jpg"
+  button_text: "Take the #CheckInSis Challenge"
+  button_url: "/checkinsis/"
