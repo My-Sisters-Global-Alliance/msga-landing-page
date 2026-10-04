@@ -84,6 +84,8 @@ og_image: /assets/checkinsis-og.jpg
 .ci-counter .btn{margin-top:24px;}
 .ci-counter-success{display:none;color:var(--pink);font-size:0.9rem;font-weight:700;margin-top:16px;}
 .ci-counter-success.visible{display:block;}
+.ci-counter-fallback-note{display:none;color:var(--champagne);font-size:0.78rem;margin-top:10px;opacity:0.85;}
+.ci-counter-fallback-note.visible{display:block;}
 
 .ci-honor{position:relative;overflow:hidden;padding:88px 0;background:
   radial-gradient(ellipse 620px 420px at 12% 18%, rgba(247,182,207,0.4) 0%, rgba(247,182,207,0) 70%),
@@ -236,8 +238,9 @@ og_image: /assets/checkinsis-og.jpg
     <div class="ci-counter">
       <div class="ci-counter-number" id="ciCounterNumber">{{ site.data.checkinsis.counter_fallback }}</div>
       <div class="ci-counter-label">Sisters Checked In</div>
+      <div class="ci-counter-fallback-note" id="ciCounterFallbackNote">Showing today's saved count — refresh to see the latest.</div>
       <button type="button" class="btn btn-pink" id="ciCheckInBtn">I Checked In</button>
-      <div class="ci-counter-success" id="ciCounterSuccess" role="status">Thank you, Sis. You checked in — and reminded another sister to do the same.</div>
+      <div class="ci-counter-success" id="ciCounterSuccess" role="status"></div>
     </div>
   </div>
 </section>
@@ -324,22 +327,70 @@ og_image: /assets/checkinsis-og.jpg
 </section>
 
 <script>
-/* Placeholder-only demo interaction: no backend is connected yet (Stage 3).
-   This just gives a local, non-persistent preview of the success state —
-   the number resets on reload and nothing is sent anywhere. */
 (function(){
+  // Same-origin route once the Worker is deployed per worker/wrangler.toml
+  // Option A. If deployed to workers.dev instead (Option B), change this to
+  // the full https://<name>.<subdomain>.workers.dev/api URL.
+  var CI_API_BASE = '/api';
+  var STORAGE_KEY = 'checkinsis_checked_in';
+  var SUCCESS_MESSAGE = 'Thank you, Sis. You checked in — and reminded another sister to do the same.';
+
   var btn = document.getElementById('ciCheckInBtn');
   var numberEl = document.getElementById('ciCounterNumber');
-  var successEl = document.getElementById('ciCounterSuccess');
-  if(!btn || !numberEl || !successEl) return;
-  var alreadyChecked = false;
-  btn.addEventListener('click', function(){
-    if(alreadyChecked) return;
-    alreadyChecked = true;
-    numberEl.textContent = (parseInt(numberEl.textContent, 10) + 1).toString();
-    successEl.classList.add('visible');
+  var fallbackNoteEl = document.getElementById('ciCounterFallbackNote');
+  var statusEl = document.getElementById('ciCounterSuccess');
+  if(!btn || !numberEl || !statusEl) return;
+
+  function showStatus(text){
+    statusEl.textContent = text;
+    statusEl.classList.add('visible');
+  }
+
+  function setCheckedInState(){
     btn.setAttribute('disabled', 'true');
     btn.textContent = 'Checked In';
+  }
+
+  // "Remembers in the browser" means localStorage on this device only —
+  // there is no server-side record of who checked in, just the total.
+  var alreadyCheckedIn = false;
+  try { alreadyCheckedIn = window.localStorage.getItem(STORAGE_KEY) === '1'; } catch(e){}
+  if(alreadyCheckedIn){
+    setCheckedInState();
+    showStatus(SUCCESS_MESSAGE);
+  }
+
+  // Load the live total. If the API isn't reachable (not deployed yet,
+  // network error, etc.) just leave the static YAML fallback number that's
+  // already rendered server-side, with a small friendly note.
+  fetch(CI_API_BASE + '/checkin-count')
+    .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
+    .then(function(data){
+      if(typeof data.total === 'number'){ numberEl.textContent = data.total.toString(); }
+    })
+    .catch(function(){
+      if(fallbackNoteEl){ fallbackNoteEl.classList.add('visible'); }
+    });
+
+  btn.addEventListener('click', function(){
+    if(alreadyCheckedIn || btn.hasAttribute('disabled')) return;
+    btn.setAttribute('disabled', 'true');
+    btn.textContent = 'Checking in…';
+
+    fetch(CI_API_BASE + '/checkin', { method: 'POST' })
+      .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
+      .then(function(data){
+        if(typeof data.total === 'number'){ numberEl.textContent = data.total.toString(); }
+        alreadyCheckedIn = true;
+        try { window.localStorage.setItem(STORAGE_KEY, '1'); } catch(e){}
+        setCheckedInState();
+        showStatus(SUCCESS_MESSAGE);
+      })
+      .catch(function(){
+        btn.removeAttribute('disabled');
+        btn.textContent = 'I Checked In';
+        showStatus("Couldn't reach the server just now — please try again in a moment.");
+      });
   });
 })();
 </script>

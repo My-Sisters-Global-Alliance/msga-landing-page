@@ -1,0 +1,30 @@
+name = "checkinsis-counter"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[[durable_objects.bindings]]
+name = "CHECKIN_COUNTER"
+class_name = "CheckinCounter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["CheckinCounter"]
+
+# --- Deployment target: pick ONE of the two options below. ---
+#
+# Option A (preferred) — mount directly on our own zone. The page then
+# calls a same-origin path (/api/checkin-count, /api/checkin) and needs
+# no CORS at all. Requires mysistersglobal.org to be on this Cloudflare
+# account as a zone.
+#
+[[routes]]
+pattern = "mysistersglobal.org/api/*"
+zone_name = "mysistersglobal.org"
+#
+# Option B (fallback) — if the zone isn't available on this account, deploy
+# to the free *.workers.dev subdomain instead. The Worker code already
+# restricts CORS to https://mysistersglobal.org and http://127.0.0.1:* so
+# this is safe to use as-is; just update the API base URL in checkinsis.html
+# to the full workers.dev URL Wrangler prints after deploy.
+#
+# workers_dev = true
