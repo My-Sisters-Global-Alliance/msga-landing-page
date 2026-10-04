@@ -2,7 +2,7 @@
 # entries or update the fallback counter — the page reads both via Liquid.
 
 # Static fallback shown until the live Cloudflare counter is connected (Stage 3).
-counter_fallback: 247
+counter_fallback: 0
 
 # Approved Honor Wall entries only. Add an entry here after a human has
 # reviewed the Google Form submission — this is the only source the public
