@@ -1,0 +1,13 @@
+<!-- October-only promo banner. Remove the include line in _layouts/default.html (or the checkinsis_banner front-matter flag in index.html) after October to take it down. -->
+<a href="{{ '/checkinsis/' | relative_url }}" class="ci-banner">
+  <div class="wrap ci-banner-inner">
+    <span>Breast Cancer Awareness Month &mdash; Take the <strong>#CheckInSis</strong> Challenge</span>
+    <span class="ci-banner-arrow" aria-hidden="true">&rarr;</span>
+  </div>
+</a>
+<style>
+.ci-banner{display:block;background:var(--pink);color:var(--navy);text-decoration:none;}
+.ci-banner:hover{background:var(--gold-light);}
+.ci-banner-inner{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 24px;font-size:0.85rem;font-weight:700;text-align:center;}
+.ci-banner-arrow{font-size:0.95rem;}
+</style>
