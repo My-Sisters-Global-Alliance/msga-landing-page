@@ -397,7 +397,7 @@ og_image: /assets/checkinsis-og.jpg
     btn.textContent = 'Share';
     btn.setAttribute('aria-label', 'Share ' + (name ? name + "'s" : 'this') + ' tribute');
     btn.addEventListener('click', function(){
-      var url = 'https://mysistersglobal.org/checkinsis/#' + anchor;
+      var url = 'https://mysistersglobal.org/api/share/' + encodeURIComponent(anchor.replace(/^honor-/, ''));
       var text = (name ? name + ' is' : 'A sister is') + ' being honored on the My Sisters Global Alliance #CheckInSis Honor Wall \uD83D\uDC97';
       if(navigator.share){
         navigator.share({ title: '#CheckInSis Honor Wall', text: text, url: url }).catch(function(){});
