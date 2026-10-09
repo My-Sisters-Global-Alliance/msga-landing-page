@@ -158,6 +158,59 @@ function json(data, status, extraHeaders) {
   });
 }
 
+// Share links: /api/share/<key> returns a tiny page whose link preview shows
+// the honoree's name and photo (Facebook, Messages, etc. read these tags),
+// then forwards visitors to that card on the #CheckInSis Honor Wall.
+const SHARE_SPECIAL = {
+  'sharon-stafford': { name: 'Dr. Sharon Stafford', image: 'https://mysistersglobal.org/assets/honor-sharon-stafford.jpg' },
+  'AqPjS8t6laiDvQMh': { image: 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg' },
+};
+
+function escHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function handleShare(key, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request('https://mysistersglobal.org/api/share/' + key);
+  const hit = await cache.match(cacheKey);
+  if (hit) return hit;
+  const special = SHARE_SPECIAL[key] || {};
+  let name = special.name || null;
+  let image = special.image || null;
+  if (!name) {
+    try {
+      const e = (await fetchHonorWall(env)).find((x) => x.key === key);
+      if (e) {
+        name = e.honoree;
+        if (!image && e._src) image = 'https://mysistersglobal.org/api/honor-photo/' + encodeURIComponent(key);
+      }
+    } catch (err) { /* fall back to a general preview */ }
+  }
+  image = image || 'https://mysistersglobal.org/assets/checkinsis-og.jpg';
+  const title = (name ? 'Honoring ' + name : 'A Sister Honored') + ' | #CheckInSis Honor Wall';
+  const desc = 'See this tribute on the My Sisters Global Alliance #CheckInSis Honor Wall, and honor a sister of your own.';
+  const shareUrl = 'https://mysistersglobal.org/api/share/' + encodeURIComponent(key);
+  const target = '/checkinsis/#honor-' + encodeURIComponent(key);
+  const t = escHtml(title), d = escHtml(desc), i = escHtml(image);
+  const html = '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    + '<title>' + t + '</title><meta name="description" content="' + d + '">'
+    + '<meta property="og:type" content="website"><meta property="og:site_name" content="MySGA">'
+    + '<meta property="og:url" content="' + escHtml(shareUrl) + '">'
+    + '<meta property="og:title" content="' + t + '"><meta property="og:description" content="' + d + '">'
+    + '<meta property="og:image" content="' + i + '">'
+    + '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + t + '">'
+    + '<meta name="twitter:description" content="' + d + '"><meta name="twitter:image" content="' + i + '">'
+    + '<meta name="robots" content="noindex">'
+    + '<script>location.replace(' + JSON.stringify(target) + ');</script></head>'
+    + '<body style="font-family:sans-serif;text-align:center;padding:40px 16px;">'
+    + '<p><a href="' + escHtml(target) + '">See this tribute on the #CheckInSis Honor Wall</a></p></body></html>';
+  const res = new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
+  ctx.waitUntil(cache.put(cacheKey, res.clone()));
+  return res;
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -165,6 +218,11 @@ export default {
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    if (url.pathname.startsWith('/api/share/') && request.method === 'GET') {
+      const k = decodeURIComponent(url.pathname.slice('/api/share/'.length)).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+      return handleShare(k, env, ctx);
     }
 
     if (url.pathname === '/api/honor-wall' && request.method === 'GET') {
