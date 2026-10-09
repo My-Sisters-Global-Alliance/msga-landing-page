@@ -115,6 +115,14 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-entry-msg{color:var(--text);font-size:0.95rem;line-height:1.6;flex-grow:1;}
 .ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
 .ci-honor-entry-photo{width:100%;height:260px;object-fit:cover;object-position:center top;border-radius:var(--radius-md);display:block;}
+.ci-honor-spotlight{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);max-width:960px;margin:40px auto 0;overflow:hidden;text-align:left;position:relative;z-index:1;}
+.ci-honor-spotlight-photo{width:100%;height:340px;object-fit:cover;object-position:center top;display:block;}
+.ci-honor-spotlight-body{padding:28px 26px;display:flex;flex-direction:column;gap:12px;}
+.ci-honor-spotlight-label{align-self:flex-start;background:var(--pink-accent);color:#fff;font-weight:800;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;padding:7px 16px;border-radius:999px;line-height:1.3;}
+@media(max-width:420px){.ci-honor-spotlight-label{font-size:0.68rem;letter-spacing:0.03em;padding:7px 12px;}}
+.ci-honor-spotlight-name{font-weight:800;color:#082149;font-size:clamp(1.4rem,3vw,1.8rem);line-height:1.25;margin:0;}
+.ci-honor-spotlight-body p{color:var(--text);font-size:0.98rem;line-height:1.7;margin:0;}
+@media(min-width:760px){.ci-honor-spotlight{flex-direction:row;}.ci-honor-spotlight-photo{width:320px;height:auto;min-height:100%;flex-shrink:0;}.ci-honor-spotlight-body{padding:34px 36px;}}
 
 .ci-closing{padding:88px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;text-align:center;}
 .ci-closing .wrap{max-width:640px;}
@@ -253,6 +261,17 @@ og_image: /assets/checkinsis-og.jpg
       </h2>
       <p>Celebrating the sisters whose courage, strength, love, and journeys remind us to keep checking in.</p>
     </div>
+    <article class="ci-honor-spotlight" aria-labelledby="ciSpotlightName">
+      <img class="ci-honor-spotlight-photo" src="{{ '/assets/honor-sharon-stafford.jpg' | relative_url }}" alt="Dr. Sharon Stafford" width="320" height="400" loading="lazy">
+      <div class="ci-honor-spotlight-body">
+        <span class="ci-honor-spotlight-label">Inaugural Honor Wall Honoree</span>
+        <h3 class="ci-honor-spotlight-name" id="ciSpotlightName">Dr. Sharon Stafford</h3>
+        <p>My Sisters Global Alliance proudly honors Dr. Sharon Stafford for her unwavering commitment to breast health awareness and women's well-being.</p>
+        <p>Through her leadership, dedication, and advocacy, Dr. Stafford was instrumental in establishing MySGA's Sister Check initiative, encouraging women across the nation to prioritize their breast health through monthly self-checks, awareness, and early detection.</p>
+        <p>As the first person inducted into the MySGA Honor Wall, Dr. Stafford represents the extraordinary impact of one woman's commitment to educating, equipping, and empowering others.</p>
+        <p>We honor her leadership, celebrate her dedication, and recognize the lasting legacy she continues to build.</p>
+      </div>
+    </article>
     <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
     <div class="ci-honor-widget-card">
       <span class="ci-honor-widget-headline">Nominate a Sister</span>
