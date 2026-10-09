@@ -436,7 +436,8 @@ og_image: /assets/checkinsis-og.jpg
           }
           var name = document.createElement('div');
           name.className = 'ci-honor-entry-name';
-          name.textContent = e.honoree ? 'Honoring ' + e.honoree : 'Honoring a Sister';
+          // A gift with no honoree and no message gets a thank-you heading.
+          name.textContent = e.honoree ? 'Honoring ' + e.honoree : ((e.message || (e.date && CI_HONOR_MESSAGES[e.date])) ? 'Honoring a Sister' : 'Thank you for supporting #CheckInSis');
           card.appendChild(name);
           var override = e.date && CI_HONOR_MESSAGES[e.date];
           if(override){
