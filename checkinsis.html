@@ -114,6 +114,9 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-entry-name{font-weight:800;color:var(--navy);font-size:1.05rem;}
 .ci-honor-entry-msg{color:var(--text);font-size:0.95rem;line-height:1.6;flex-grow:1;}
 .ci-honor-entry-msg-lead{font-weight:700;color:var(--navy);flex-grow:0;margin:0;}
+.ci-honor-share{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--pink-accent);color:var(--pink-accent);font-family:inherit;font-weight:700;font-size:0.82rem;padding:7px 16px;border-radius:999px;cursor:pointer;margin-top:4px;}
+.ci-honor-share:hover,.ci-honor-share:focus-visible{background:var(--pink-accent);color:#fff;}
+.ci-honor-entry,.ci-honor-spotlight{scroll-margin-top:90px;}
 .ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
 .ci-honor-entry-photo{width:100%;height:260px;object-fit:cover;object-position:center top;border-radius:var(--radius-md);display:block;}
 .ci-honor-spotlight{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);max-width:960px;margin:40px auto 0;overflow:hidden;text-align:left;position:relative;z-index:1;}
@@ -385,15 +388,43 @@ og_image: /assets/checkinsis-og.jpg
       "Thank you, Jaina, for leading with purpose, serving with compassion, and helping transform a vision into meaningful action. Your dedication is making a difference, and we are honored to celebrate you."
     ]
   };
+  // Share button: opens the phone's share menu (Messages, WhatsApp, etc.)
+  // with a link straight to that card; on computers it copies the link.
+  function ciShareButton(name, anchor){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ci-honor-share';
+    btn.textContent = 'Share';
+    btn.setAttribute('aria-label', 'Share ' + (name ? name + "'s" : 'this') + ' tribute');
+    btn.addEventListener('click', function(){
+      var url = 'https://mysistersglobal.org/checkinsis/#' + anchor;
+      var text = (name ? name + ' is' : 'A sister is') + ' being honored on the My Sisters Global Alliance #CheckInSis Honor Wall \uD83D\uDC97';
+      if(navigator.share){
+        navigator.share({ title: '#CheckInSis Honor Wall', text: text, url: url }).catch(function(){});
+      } else if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text + ' ' + url).then(function(){
+          btn.textContent = 'Link copied!';
+          setTimeout(function(){ btn.textContent = 'Share'; }, 2500);
+        }, function(){});
+      }
+    });
+    return btn;
+  }
+  var spotlight = document.querySelector('.ci-honor-spotlight');
+  if(spotlight){
+    spotlight.id = 'honor-sharon-stafford';
+    spotlight.querySelector('.ci-honor-spotlight-body').appendChild(ciShareButton('Dr. Sharon Stafford', spotlight.id));
+  }
   if(feedEl){
     fetch(CI_API_BASE + '/honor-wall', { cache: 'no-store' })
       .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
       .then(function(data){
         var entries = (data && data.entries) || [];
         if(!entries.length) return;
-        entries.forEach(function(e){
+        entries.forEach(function(e, i){
           var card = document.createElement('article');
           card.className = 'ci-honor-entry';
+          card.id = 'honor-' + (e.key || i);
           var photoUrl = e.photo || (e.date && CI_HONOR_PHOTOS[e.date]);
           if(photoUrl){
             var img = document.createElement('img');
@@ -425,9 +456,13 @@ og_image: /assets/checkinsis-og.jpg
           from.className = 'ci-honor-entry-from';
           from.textContent = '\u2014 ' + e.from;
           card.appendChild(from);
+          card.appendChild(ciShareButton(e.honoree, card.id));
           feedEl.appendChild(card);
         });
         feedEl.hidden = false;
+        // Shared links point at a card that only exists after loading.
+        var target = location.hash && document.getElementById(location.hash.slice(1));
+        if(target && target.classList.contains('ci-honor-entry')){ target.scrollIntoView({ block: 'start' }); }
       })
       .catch(function(){ /* leave the wall hidden; the nomination form still works */ });
   }
