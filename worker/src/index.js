@@ -36,6 +36,29 @@ const HONOR_WALL_CAMPAIGN_ID = 760449;
 const HONOR_WALL_CACHE_SECONDS = 300;
 const HONOR_WALL_MAX_PAGES = 5;
 
+// Finds a photo uploaded through the ticket's "Photo of the sister you're
+// honoring" question. Looks only in custom-field answers and line items,
+// and accepts an image URL or any URL inside a file-type field.
+function findHonorPhoto(t) {
+  const IMG = /^https?:\/\/[^\s"']+\.(jpe?g|png|webp|gif|svg)(\?[^\s"']*)?$/i;
+  const seen = new Set();
+  let found = null;
+  const walk = (o, fileCtx) => {
+    if (found || o == null) return;
+    if (typeof o === 'string') {
+      if (IMG.test(o) || (fileCtx && /^https?:\/\//.test(o))) found = o;
+      return;
+    }
+    if (typeof o !== 'object' || seen.has(o)) return;
+    seen.add(o);
+    const isFile = fileCtx || o.type === 'file' || o.field_type === 'file';
+    for (const k in o) walk(o[k], isFile);
+  };
+  walk(t.custom_fields, false);
+  walk(t.line_items, false);
+  return found;
+}
+
 async function fetchHonorWall(env) {
   if (!env.GIVEBUTTER_API_KEY) throw new Error('GIVEBUTTER_API_KEY not set');
   const entries = [];
@@ -56,6 +79,7 @@ async function fetchHonorWall(env) {
         honoree: ((t.dedication && t.dedication.name) || '').trim() || null,
         message: (post.message || '').trim() || null,
         date: t.created_at || null,
+        photo: findHonorPhoto(t),
       });
     }
     next = body.links && body.links.next;
