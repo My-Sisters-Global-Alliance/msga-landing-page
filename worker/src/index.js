@@ -162,12 +162,22 @@ function json(data, status, extraHeaders) {
 // the honoree's name and photo (Facebook, Messages, etc. read these tags),
 // then forwards visitors to that card on the #CheckInSis Honor Wall.
 const SHARE_SPECIAL = {
-  'sharon-stafford': { name: 'Dr. Sharon Stafford', image: 'https://mysistersglobal.org/assets/honor-sharon-stafford.jpg' },
+  'sharon-stafford': { name: 'Dr. Sharon Stafford', image: '/assets/honor-sharon-stafford.jpg' },
   'AqPjS8t6laiDvQMh': { image: 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg' },
 };
 
 function escHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Passes a special-case photo hosted elsewhere through our own domain.
+async function handleSharePhoto(key) {
+  const src = (SHARE_SPECIAL[key] || {}).image;
+  if (!src || src.startsWith('/')) return new Response('Not found', { status: 404 });
+  const img = await fetch(src);
+  const type = img.headers.get('Content-Type') || '';
+  if (!img.ok || !/^image\/(jpeg|png|webp|gif)/.test(type)) return new Response('Not found', { status: 404 });
+  return new Response(img.body, { headers: { 'Content-Type': type, 'Cache-Control': 'public, max-age=86400', 'X-Content-Type-Options': 'nosniff' } });
 }
 
 async function handleShare(key, env, ctx) {
@@ -177,17 +187,22 @@ async function handleShare(key, env, ctx) {
   if (hit) return hit;
   const special = SHARE_SPECIAL[key] || {};
   let name = special.name || null;
-  let image = special.image || null;
+  // Image path on our own domain (transformations only read our own domain).
+  let image = special.image ? (special.image.startsWith('/') ? special.image : '/api/share/' + encodeURIComponent(key) + '/photo') : null;
   if (!name) {
     try {
       const e = (await fetchHonorWall(env)).find((x) => x.key === key);
       if (e) {
         name = e.honoree;
-        if (!image && e._src) image = 'https://mysistersglobal.org/api/honor-photo/' + encodeURIComponent(key);
+        if (!image && e._src) image = '/api/honor-photo/' + encodeURIComponent(key);
       }
     } catch (err) { /* fall back to a general preview */ }
   }
-  image = image || 'https://mysistersglobal.org/assets/checkinsis-og.jpg';
+  // Wide 1200x630 version (whole photo on a soft pink background) so
+  // Facebook etc. don't crop off heads. Uses Cloudflare Image Transformations.
+  image = image
+    ? 'https://mysistersglobal.org/cdn-cgi/image/width=1200,height=630,fit=pad,background=%23FDF0F5,format=jpeg' + image
+    : 'https://mysistersglobal.org/assets/checkinsis-og.jpg';
   const title = (name ? 'Honoring ' + name : 'A Sister Honored') + ' | #CheckInSis Honor Wall';
   const desc = 'See this tribute on the My Sisters Global Alliance #CheckInSis Honor Wall, and honor a sister of your own.';
   const shareUrl = 'https://mysistersglobal.org/api/share/' + encodeURIComponent(key);
@@ -199,7 +214,7 @@ async function handleShare(key, env, ctx) {
     + '<meta property="og:type" content="website"><meta property="og:site_name" content="MySGA">'
     + '<meta property="og:url" content="' + escHtml(shareUrl) + '">'
     + '<meta property="og:title" content="' + t + '"><meta property="og:description" content="' + d + '">'
-    + '<meta property="og:image" content="' + i + '">'
+    + '<meta property="og:image" content="' + i + '"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
     + '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + t + '">'
     + '<meta name="twitter:description" content="' + d + '"><meta name="twitter:image" content="' + i + '">'
     + '<meta name="robots" content="noindex">'
@@ -221,8 +236,10 @@ export default {
     }
 
     if (url.pathname.startsWith('/api/share/') && request.method === 'GET') {
-      const k = decodeURIComponent(url.pathname.slice('/api/share/'.length)).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
-      return handleShare(k, env, ctx);
+      const rest = decodeURIComponent(url.pathname.slice('/api/share/'.length));
+      const isPhoto = rest.endsWith('/photo');
+      const k = (isPhoto ? rest.slice(0, -6) : rest).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+      return isPhoto ? handleSharePhoto(k) : handleShare(k, env, ctx);
     }
 
     if (url.pathname === '/api/honor-wall' && request.method === 'GET') {
