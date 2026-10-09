@@ -34,7 +34,10 @@ const MAX_BODY_BYTES = 1024; // generous ceiling — these endpoints expect no b
 // cached for 5 minutes so the page doesn't hit Givebutter on every visit.
 const HONOR_WALL_CAMPAIGN_ID = 760449;
 const HONOR_WALL_CACHE_SECONDS = 300;
-const HONOR_WALL_MAX_PAGES = 5;
+const HONOR_WALL_MAX_PAGES = 10; // 100 per page
+// Only scan transactions from the campaign's start, so other campaigns'
+// donations can't push older Honor Wall entries off the page.
+const HONOR_WALL_SINCE = '2026-10-01T00:00:00Z';
 
 // Finds a photo uploaded through the ticket's "Photo of the sister you're
 // honoring" question. Looks only in custom-field answers and line items,
@@ -63,9 +66,9 @@ function findHonorPhoto(t, photoMap) {
 // Ticket-level answers (like the "Photo of the sister you're honoring"
 // upload) live on Givebutter's tickets, not on transactions. Build a map of
 // transaction id -> uploaded photo URL.
-async function fetchTicketPhotos(env) {
+async function fetchTicketPhotos(env, nameMap) {
   const map = {};
-  let next = 'https://api.givebutter.com/v1/tickets';
+  let next = 'https://api.givebutter.com/v1/tickets?per_page=100';
   for (let page = 0; next && page < HONOR_WALL_MAX_PAGES; page++) {
     const res = await fetch(next, {
       headers: { Authorization: 'Bearer ' + env.GIVEBUTTER_API_KEY, Accept: 'application/json' },
@@ -79,6 +82,14 @@ async function fetchTicketPhotos(env) {
       if (f && tk.transaction_id != null && !map[String(tk.transaction_id)]) {
         map[String(tk.transaction_id)] = f.value;
       }
+      // "Name of the sister you're honoring" answer, used when the
+      // donor didn't fill in Givebutter's own "In honor of" name.
+      if (nameMap && tk.transaction_id != null && !nameMap[String(tk.transaction_id)]) {
+        const n = (tk.custom_fields || []).find(
+          (c) => c && c.type !== 'file' && /name/i.test(c.title || '') && typeof c.value === 'string' && c.value.trim()
+        );
+        if (n) nameMap[String(tk.transaction_id)] = n.value.trim().slice(0, 80);
+      }
     }
     next = body.links && body.links.next;
   }
@@ -88,8 +99,9 @@ async function fetchTicketPhotos(env) {
 async function fetchHonorWall(env) {
   if (!env.GIVEBUTTER_API_KEY) throw new Error('GIVEBUTTER_API_KEY not set');
   const entries = [];
-  const photoMap = await fetchTicketPhotos(env);
-  let next = 'https://api.givebutter.com/v1/transactions';
+  const nameMap = {};
+  const photoMap = await fetchTicketPhotos(env, nameMap);
+  let next = 'https://api.givebutter.com/v1/transactions?per_page=100&transactedAfter=' + encodeURIComponent(HONOR_WALL_SINCE);
   for (let page = 0; next && page < HONOR_WALL_MAX_PAGES; page++) {
     const res = await fetch(next, {
       headers: { Authorization: 'Bearer ' + env.GIVEBUTTER_API_KEY, Accept: 'application/json' },
@@ -107,7 +119,7 @@ async function fetchHonorWall(env) {
       if (/\bhide\b/i.test(t.internal_note || '')) continue;
       entries.push({
         from: (post.name || '').trim() || 'A Sister',
-        honoree: ((t.dedication && t.dedication.name) || '').trim() || null,
+        honoree: ((t.dedication && t.dedication.name) || nameMap[String(t.id)] || '').trim() || null,
         message: (post.message || '').trim() || null,
         date: t.created_at || null,
         _src: findHonorPhoto(t, photoMap), // internal only, stripped before responding
