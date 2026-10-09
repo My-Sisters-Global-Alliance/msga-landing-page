@@ -347,9 +347,9 @@ og_image: /assets/checkinsis-og.jpg
   // Honor Wall: load tributes automatically. Uses textContent only, so
   // nothing a donor types can inject code into the page.
   var feedEl = document.getElementById('ciHonorFeed');
-  // Photos for honor wall entries. Givebutter's API doesn't share
-  // supporter-feed photos, so add each one here: the key is the entry's
-  // date from /api/honor-wall, the value is the photo URL.
+  // Photos uploaded through the ticket's photo question come in
+  // automatically as e.photo. This list is only for older entries whose
+  // photo was added in Givebutter's feed instead (key = entry date).
   var CI_HONOR_PHOTOS = {
     '2026-10-09T04:59:35+00:00': 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg'
   };
@@ -362,7 +362,7 @@ og_image: /assets/checkinsis-og.jpg
         entries.forEach(function(e){
           var card = document.createElement('article');
           card.className = 'ci-honor-entry';
-          var photoUrl = e.date && CI_HONOR_PHOTOS[e.date];
+          var photoUrl = e.photo || (e.date && CI_HONOR_PHOTOS[e.date]);
           if(photoUrl){
             var img = document.createElement('img');
             img.className = 'ci-honor-entry-photo';
