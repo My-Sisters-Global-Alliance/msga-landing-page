@@ -107,6 +107,14 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-widget-card{max-width:520px;margin:32px auto 0;background:#fff;border-radius:var(--radius-lg);border-top:4px solid var(--pink-accent);box-shadow:0 10px 28px rgba(194,71,122,0.16);padding:28px;text-align:center;}
 .ci-honor-widget-headline{display:inline-block;background:var(--pink-accent);color:#fff;font-weight:800;font-size:1.3rem;padding:12px 28px;border-radius:999px;margin-bottom:20px;}
 
+.ci-honor-feed{display:grid;grid-template-columns:1fr;gap:20px;max-width:960px;margin:40px auto 0;position:relative;z-index:1;}
+@media(min-width:720px){.ci-honor-feed{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1000px){.ci-honor-feed{grid-template-columns:repeat(3,1fr);}}
+.ci-honor-entry{background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);padding:24px 22px;text-align:left;display:flex;flex-direction:column;gap:10px;}
+.ci-honor-entry-name{font-weight:800;color:var(--navy);font-size:1.05rem;}
+.ci-honor-entry-msg{color:var(--text);font-size:0.95rem;line-height:1.6;flex-grow:1;}
+.ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
+
 .ci-closing{padding:88px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;text-align:center;}
 .ci-closing .wrap{max-width:640px;}
 .ci-closing h2{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.3;}
@@ -249,6 +257,7 @@ og_image: /assets/checkinsis-og.jpg
       <script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=G4a1ElMSW25RpXRU&p=other"></script>
       <givebutter-widget id="LWkvbQ"></givebutter-widget>
     </div>
+    <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
   </div>
 </section>
 
@@ -334,5 +343,37 @@ og_image: /assets/checkinsis-og.jpg
         showStatus("Couldn't reach the server just now — please try again in a moment.");
       });
   });
+  // Honor Wall: load tributes automatically. Uses textContent only, so
+  // nothing a donor types can inject code into the page.
+  var feedEl = document.getElementById('ciHonorFeed');
+  if(feedEl){
+    fetch(CI_API_BASE + '/honor-wall')
+      .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
+      .then(function(data){
+        var entries = (data && data.entries) || [];
+        if(!entries.length) return;
+        entries.forEach(function(e){
+          var card = document.createElement('article');
+          card.className = 'ci-honor-entry';
+          var name = document.createElement('div');
+          name.className = 'ci-honor-entry-name';
+          name.textContent = e.honoree ? 'In honor of ' + e.honoree : 'Honoring a Sister';
+          card.appendChild(name);
+          if(e.message){
+            var msg = document.createElement('p');
+            msg.className = 'ci-honor-entry-msg';
+            msg.textContent = e.message;
+            card.appendChild(msg);
+          }
+          var from = document.createElement('div');
+          from.className = 'ci-honor-entry-from';
+          from.textContent = '\u2014 ' + e.from;
+          card.appendChild(from);
+          feedEl.appendChild(card);
+        });
+        feedEl.hidden = false;
+      })
+      .catch(function(){ /* leave the wall hidden; the nomination form still works */ });
+  }
 })();
 </script>
