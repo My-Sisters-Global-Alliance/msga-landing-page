@@ -28,6 +28,41 @@ function corsHeadersFor(request) {
 
 const MAX_BODY_BYTES = 1024; // generous ceiling — these endpoints expect no body at all
 
+// Honor Wall: reads public supporter-feed posts from the Givebutter
+// "MySGA #CheckInSis Honor Wall" campaign. The API key lives only in the
+// Worker secret GIVEBUTTER_API_KEY, never in page code. Results are
+// cached for 5 minutes so the page doesn't hit Givebutter on every visit.
+const HONOR_WALL_CAMPAIGN_ID = 760449;
+const HONOR_WALL_CACHE_SECONDS = 300;
+const HONOR_WALL_MAX_PAGES = 5;
+
+async function fetchHonorWall(env) {
+  if (!env.GIVEBUTTER_API_KEY) throw new Error('GIVEBUTTER_API_KEY not set');
+  const entries = [];
+  let next = 'https://api.givebutter.com/v1/transactions';
+  for (let page = 0; next && page < HONOR_WALL_MAX_PAGES; page++) {
+    const res = await fetch(next, {
+      headers: { Authorization: 'Bearer ' + env.GIVEBUTTER_API_KEY, Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error('Givebutter returned ' + res.status);
+    const body = await res.json();
+    for (const t of body.data || []) {
+      if (Number(t.campaign_id) !== HONOR_WALL_CAMPAIGN_ID) continue;
+      if (t.status && t.status !== 'succeeded') continue;
+      const post = t.giving_space;
+      if (!post) continue; // hidden posts aren't in the public feed, so keep them off the wall too
+      entries.push({
+        from: (post.name || '').trim() || 'A Sister',
+        honoree: ((t.dedication && t.dedication.name) || '').trim() || null,
+        message: (post.message || '').trim() || null,
+        date: t.created_at || null,
+      });
+    }
+    next = body.links && body.links.next;
+  }
+  return entries;
+}
+
 // Short in-memory rate limit. This Map lives only in this Worker isolate's
 // live memory for as long as it stays warm (typically minutes) — it is
 // never written to Durable Object storage, never logged, and is wiped on
@@ -56,12 +91,30 @@ function json(data, status, extraHeaders) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const cors = corsHeadersFor(request);
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    if (url.pathname === '/api/honor-wall' && request.method === 'GET') {
+      const cache = caches.default;
+      const cacheKey = new Request('https://mysistersglobal.org/api/honor-wall');
+      const cached = await cache.match(cacheKey);
+      if (cached) return cached;
+      try {
+        const entries = await fetchHonorWall(env);
+        const res = json({ entries }, 200, {
+          ...cors,
+          'Cache-Control': 'public, max-age=' + HONOR_WALL_CACHE_SECONDS,
+        });
+        ctx.waitUntil(cache.put(cacheKey, res.clone()));
+        return res;
+      } catch (e) {
+        return json({ entries: [], error: 'Honor wall unavailable' }, 502, cors);
+      }
     }
 
     const contentLength = Number(request.headers.get('Content-Length') || '0');
