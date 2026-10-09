@@ -114,6 +114,7 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-entry-name{font-weight:800;color:var(--navy);font-size:1.05rem;}
 .ci-honor-entry-msg{color:var(--text);font-size:0.95rem;line-height:1.6;flex-grow:1;}
 .ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
+.ci-honor-entry-photo{width:100%;height:260px;object-fit:cover;object-position:center top;border-radius:var(--radius-md);display:block;}
 
 .ci-closing{padding:88px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;text-align:center;}
 .ci-closing .wrap{max-width:640px;}
@@ -252,12 +253,12 @@ og_image: /assets/checkinsis-og.jpg
       </h2>
       <p>Celebrating the sisters whose courage, strength, love, and journeys remind us to keep checking in.</p>
     </div>
+    <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
     <div class="ci-honor-widget-card">
       <span class="ci-honor-widget-headline">Nominate a Sister</span>
       <script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=G4a1ElMSW25RpXRU&p=other"></script>
       <givebutter-widget id="LWkvbQ"></givebutter-widget>
     </div>
-    <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
   </div>
 </section>
 
@@ -346,6 +347,12 @@ og_image: /assets/checkinsis-og.jpg
   // Honor Wall: load tributes automatically. Uses textContent only, so
   // nothing a donor types can inject code into the page.
   var feedEl = document.getElementById('ciHonorFeed');
+  // Photos for honor wall entries. Givebutter's API doesn't share
+  // supporter-feed photos, so add each one here: the key is the entry's
+  // date from /api/honor-wall, the value is the photo URL.
+  var CI_HONOR_PHOTOS = {
+    '2026-10-09T04:59:35+00:00': 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg'
+  };
   if(feedEl){
     fetch(CI_API_BASE + '/honor-wall')
       .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
@@ -355,6 +362,15 @@ og_image: /assets/checkinsis-og.jpg
         entries.forEach(function(e){
           var card = document.createElement('article');
           card.className = 'ci-honor-entry';
+          var photoUrl = e.date && CI_HONOR_PHOTOS[e.date];
+          if(photoUrl){
+            var img = document.createElement('img');
+            img.className = 'ci-honor-entry-photo';
+            img.src = photoUrl;
+            img.alt = e.honoree ? 'Photo of ' + e.honoree : 'Photo of an honored sister';
+            img.loading = 'lazy';
+            card.appendChild(img);
+          }
           var name = document.createElement('div');
           name.className = 'ci-honor-entry-name';
           name.textContent = e.honoree ? 'In honor of ' + e.honoree : 'Honoring a Sister';
