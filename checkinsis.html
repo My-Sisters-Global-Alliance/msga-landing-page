@@ -116,7 +116,7 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-entry-msg-lead{font-weight:700;color:var(--navy);flex-grow:0;margin:0;}
 .ci-honor-share{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--pink-accent);color:var(--pink-accent);font-family:inherit;font-weight:700;font-size:0.82rem;padding:7px 16px;border-radius:999px;cursor:pointer;margin-top:4px;}
 .ci-honor-share:hover,.ci-honor-share:focus-visible{background:var(--pink-accent);color:#fff;}
-.ci-honor-entry,.ci-honor-spotlight{scroll-margin-top:90px;}
+.ci-honor-entry,.ci-honor-spotlight,#nominate{scroll-margin-top:90px;}
 .ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
 .ci-honor-entry-photo{width:100%;height:260px;object-fit:cover;object-position:center top;border-radius:var(--radius-md);display:block;}
 .ci-honor-spotlight{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);max-width:960px;margin:40px auto 0;overflow:hidden;text-align:left;position:relative;z-index:1;}
@@ -277,7 +277,7 @@ og_image: /assets/checkinsis-og.jpg
       </div>
     </article>
     <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
-    <div class="ci-honor-widget-card">
+    <div class="ci-honor-widget-card" id="nominate">
       <span class="ci-honor-widget-headline">Nominate a Sister</span>
       <script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=G4a1ElMSW25RpXRU&p=other"></script>
       <givebutter-widget id="LWkvbQ"></givebutter-widget>
@@ -462,7 +462,7 @@ og_image: /assets/checkinsis-og.jpg
         feedEl.hidden = false;
         // Shared links point at a card that only exists after loading.
         var target = location.hash && document.getElementById(location.hash.slice(1));
-        if(target && target.classList.contains('ci-honor-entry')){ target.scrollIntoView({ block: 'start' }); }
+        if(target && (target.classList.contains('ci-honor-entry') || target.id === 'nominate')){ target.scrollIntoView({ block: 'start' }); }
       })
       .catch(function(){ /* leave the wall hidden; the nomination form still works */ });
   }
