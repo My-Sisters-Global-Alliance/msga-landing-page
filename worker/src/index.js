@@ -39,7 +39,8 @@ const HONOR_WALL_MAX_PAGES = 5;
 // Finds a photo uploaded through the ticket's "Photo of the sister you're
 // honoring" question. Looks only in custom-field answers and line items,
 // and accepts an image URL or any URL inside a file-type field.
-function findHonorPhoto(t) {
+function findHonorPhoto(t, photoMap) {
+  if (photoMap) return photoMap[String(t.id)] || photoMap[String(t.number)] || null;
   const IMG = /^https?:\/\/[^\s"']+\.(jpe?g|png|webp|gif|svg)(\?[^\s"']*)?$/i;
   const seen = new Set();
   let found = null;
@@ -59,9 +60,35 @@ function findHonorPhoto(t) {
   return found;
 }
 
+// Ticket-level answers (like the "Photo of the sister you're honoring"
+// upload) live on Givebutter's tickets, not on transactions. Build a map of
+// transaction id -> uploaded photo URL.
+async function fetchTicketPhotos(env) {
+  const map = {};
+  let next = 'https://api.givebutter.com/v1/tickets';
+  for (let page = 0; next && page < HONOR_WALL_MAX_PAGES; page++) {
+    const res = await fetch(next, {
+      headers: { Authorization: 'Bearer ' + env.GIVEBUTTER_API_KEY, Accept: 'application/json' },
+    });
+    if (!res.ok) break;
+    const body = await res.json();
+    for (const tk of body.data || []) {
+      const f = (tk.custom_fields || []).find(
+        (c) => c && c.type === 'file' && typeof c.value === 'string' && /^https?:\/\//.test(c.value)
+      );
+      if (f && tk.transaction_id != null && !map[String(tk.transaction_id)]) {
+        map[String(tk.transaction_id)] = f.value;
+      }
+    }
+    next = body.links && body.links.next;
+  }
+  return map;
+}
+
 async function fetchHonorWall(env) {
   if (!env.GIVEBUTTER_API_KEY) throw new Error('GIVEBUTTER_API_KEY not set');
   const entries = [];
+  const photoMap = await fetchTicketPhotos(env);
   let next = 'https://api.givebutter.com/v1/transactions';
   for (let page = 0; next && page < HONOR_WALL_MAX_PAGES; page++) {
     const res = await fetch(next, {
@@ -79,7 +106,8 @@ async function fetchHonorWall(env) {
         honoree: ((t.dedication && t.dedication.name) || '').trim() || null,
         message: (post.message || '').trim() || null,
         date: t.created_at || null,
-        photo: findHonorPhoto(t),
+        _src: findHonorPhoto(t, photoMap), // internal only, stripped before responding
+        key: String(t.id),
       });
     }
     next = body.links && body.links.next;
@@ -129,7 +157,10 @@ export default {
       const cached = await cache.match(cacheKey);
       if (cached) return cached;
       try {
-        const entries = await fetchHonorWall(env);
+        const entries = (await fetchHonorWall(env)).map(({ _src, ...e }) => ({
+          ...e,
+          photo: _src ? '/api/honor-photo/' + encodeURIComponent(e.key) : null,
+        }));
         const res = json({ entries }, 200, {
           ...cors,
           'Cache-Control': 'public, max-age=' + HONOR_WALL_CACHE_SECONDS,
@@ -144,6 +175,34 @@ export default {
     const contentLength = Number(request.headers.get('Content-Length') || '0');
     if (contentLength > MAX_BODY_BYTES) {
       return json({ error: 'Request too large' }, 413, cors);
+    }
+
+    // Serves an honor wall photo through our own domain. Only photos attached
+    // to a current honor wall entry can be fetched; SVG is refused.
+    if (url.pathname.startsWith('/api/honor-photo/') && request.method === 'GET') {
+      const pcache = caches.default;
+      const pkey = new Request('https://mysistersglobal.org' + url.pathname);
+      const phit = await pcache.match(pkey);
+      if (phit) return phit;
+      try {
+        const key = decodeURIComponent(url.pathname.slice('/api/honor-photo/'.length));
+        const list = await fetchHonorWall(env);
+        const hit = list.find((x) => x.key === key && x._src);
+        if (!hit) return json({ error: 'Not found' }, 404, cors);
+        const img = await fetch(hit._src);
+        if (!img.ok) return json({ error: 'Photo unavailable' }, 502, cors);
+        const ct = (img.headers.get('Content-Type') || '').toLowerCase();
+        const ext = ((hit._src.split('?')[0].match(/\.(jpe?g|png|gif|webp)$/i) || [])[1] || '').toLowerCase();
+        const type = /^image\/(jpeg|png|gif|webp)$/.test(ct) ? ct : ext ? 'image/' + (ext === 'jpg' ? 'jpeg' : ext) : null;
+        if (!type) return json({ error: 'Not a supported image' }, 415, cors);
+        const pres = new Response(img.body, {
+          headers: { 'Content-Type': type, 'Cache-Control': 'public, max-age=86400', 'X-Content-Type-Options': 'nosniff' },
+        });
+        await pcache.put(pkey, pres.clone());
+        return pres;
+      } catch (err) {
+        return json({ error: 'Photo unavailable' }, 502, cors);
+      }
     }
 
     const id = env.CHECKIN_COUNTER.idFromName('global');
