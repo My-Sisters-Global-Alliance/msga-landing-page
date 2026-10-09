@@ -101,6 +101,10 @@ async function fetchHonorWall(env) {
       if (t.status && t.status !== 'succeeded') continue;
       const post = t.giving_space;
       if (!post) continue; // hidden posts aren't in the public feed, so keep them off the wall too
+      // Moderation: type "hide" in the transaction's Internal note in Givebutter
+      // to keep an entry off the website (Givebutter's own Hide button isn't
+      // visible through its API).
+      if (/\bhide\b/i.test(t.internal_note || '')) continue;
       entries.push({
         from: (post.name || '').trim() || 'A Sister',
         honoree: ((t.dedication && t.dedication.name) || '').trim() || null,
