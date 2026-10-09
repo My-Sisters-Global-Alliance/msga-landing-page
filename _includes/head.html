@@ -445,16 +445,15 @@ display:flex;flex-direction:column;gap:18px;
 .voice-person img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);}
 .voice-person-name{font-weight:700;color:#fff;font-size:0.95rem;}
 .voice-person-role{font-size:0.8rem;color:rgba(251,248,241,0.7);}
-.voice-card.placeholder{
-background:#fff;border:2px dashed var(--champagne);align-items:flex-start;justify-content:center;
-}
-.voice-card.placeholder .voice-quote-mark{font-size:2.6rem;color:var(--champagne);line-height:1;font-family:Georgia,serif;}
-.voice-coming-badge{
-display:inline-block;background:var(--champagne);color:var(--orange);
+.voice-card.story-invite{background:#fff;border:2px solid var(--champagne);}
+.voice-card.story-invite .voice-quote-mark{font-size:2.6rem;color:var(--gold);line-height:1;font-family:Georgia,serif;}
+.voice-story-badge{
+display:inline-block;align-self:flex-start;background:var(--champagne);color:var(--navy);
 font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
 padding:5px 12px;border-radius:999px;
 }
-.voice-card.placeholder p{color:var(--muted);font-size:0.98rem;}
+.voice-card.story-invite p{color:var(--text);font-size:1rem;line-height:1.6;}
+.voice-card.story-invite .btn{align-self:flex-start;}
 
 /* Founder */
 .founder{padding:92px 0;background:var(--champagne);}
