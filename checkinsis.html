@@ -113,6 +113,7 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-entry{background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);padding:24px 22px;text-align:left;display:flex;flex-direction:column;gap:10px;}
 .ci-honor-entry-name{font-weight:800;color:var(--navy);font-size:1.05rem;}
 .ci-honor-entry-msg{color:var(--text);font-size:0.95rem;line-height:1.6;flex-grow:1;}
+.ci-honor-entry-msg-lead{font-weight:700;color:var(--navy);flex-grow:0;margin:0;}
 .ci-honor-entry-from{font-family:var(--font-accent-hero);color:var(--pink-accent);font-size:1.15rem;}
 .ci-honor-entry-photo{width:100%;height:260px;object-fit:cover;object-position:center top;border-radius:var(--radius-md);display:block;}
 .ci-honor-spotlight{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-md);border-top:4px solid var(--pink-accent);box-shadow:var(--shadow-sm);max-width:960px;margin:40px auto 0;overflow:hidden;text-align:left;position:relative;z-index:1;}
@@ -372,6 +373,18 @@ og_image: /assets/checkinsis-og.jpg
   var CI_HONOR_PHOTOS = {
     '2026-10-09T04:59:35+00:00': 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg'
   };
+  // Replacement wording for entries whose Givebutter message can't be edited
+  // there (key = entry date). The first two lines show bold as a title.
+  var CI_HONOR_MESSAGES = {
+    '2026-10-09T04:59:35+00:00': [
+      "Chief Operations Officer | My Sisters Global Alliance",
+      "Leadership in Action: CheckInSis Initiative",
+      "My Sisters Global Alliance proudly recognizes Jaina, our Chief Operations Officer, for her exceptional leadership and dedication in spearheading the CheckInSis initiative.",
+      "Through her vision, commitment, and tireless efforts, Jaina has helped turn a meaningful mission into an initiative that encourages women to check in on their health, their well-being, and one another.",
+      "Her leadership reflects the heart of MySGA's mission to educate, equip, and empower women and girls.",
+      "Thank you, Jaina, for leading with purpose, serving with compassion, and helping transform a vision into meaningful action. Your dedication is making a difference, and we are honored to celebrate you."
+    ]
+  };
   if(feedEl){
     fetch(CI_API_BASE + '/honor-wall', { cache: 'no-store' })
       .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
@@ -394,7 +407,15 @@ og_image: /assets/checkinsis-og.jpg
           name.className = 'ci-honor-entry-name';
           name.textContent = e.honoree ? 'Honoring ' + e.honoree : 'Honoring a Sister';
           card.appendChild(name);
-          if(e.message){
+          var override = e.date && CI_HONOR_MESSAGES[e.date];
+          if(override){
+            override.forEach(function(text, i){
+              var p = document.createElement('p');
+              p.className = 'ci-honor-entry-msg' + (i < 2 ? ' ci-honor-entry-msg-lead' : '');
+              p.textContent = text;
+              card.appendChild(p);
+            });
+          } else if(e.message){
             var msg = document.createElement('p');
             msg.className = 'ci-honor-entry-msg';
             msg.textContent = e.message;
