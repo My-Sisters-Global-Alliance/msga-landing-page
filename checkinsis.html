@@ -334,7 +334,7 @@ og_image: /assets/checkinsis-og.jpg
   // Load the live total. If the API isn't reachable (not deployed yet,
   // network error, etc.) just leave the static YAML fallback number that's
   // already rendered server-side, with a small friendly note.
-  fetch(CI_API_BASE + '/checkin-count')
+  fetch(CI_API_BASE + '/checkin-count', { cache: 'no-store' })
     .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
     .then(function(data){
       if(typeof data.total === 'number'){ numberEl.textContent = data.total.toString(); }
@@ -373,7 +373,7 @@ og_image: /assets/checkinsis-og.jpg
     '2026-10-09T04:59:35+00:00': 'https://givebutter.s3.amazonaws.com/spaces/7423537766/6c8681863ab0f67e4e8013bceb4cf1d9.jpg'
   };
   if(feedEl){
-    fetch(CI_API_BASE + '/honor-wall')
+    fetch(CI_API_BASE + '/honor-wall', { cache: 'no-store' })
       .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
       .then(function(data){
         var entries = (data && data.entries) || [];
