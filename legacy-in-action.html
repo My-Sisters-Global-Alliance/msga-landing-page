@@ -18,6 +18,8 @@ transition:transform .25s var(--ease), box-shadow .25s var(--ease);
 .legacy-story-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
 .legacy-story-photo{aspect-ratio:4/3;width:100%;overflow:hidden;background:var(--champagne);}
 .legacy-story-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.legacy-story-photo--flyer img{object-fit:contain;}
+.legacy-story-photo--flyer + .legacy-story-photo--flyer{border-top:1px solid var(--champagne);}
 .legacy-story-body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:10px;flex-grow:1;}
 .legacy-story-loc{
 display:inline-block;align-self:flex-start;background:rgba(44,105,177,0.1);color:var(--blue);
@@ -128,8 +130,11 @@ background:radial-gradient(circle,rgba(254,195,56,0.14) 0%,rgba(254,195,56,0) 70
         </div>
 
         <div class="legacy-story-card">
-          <div class="legacy-story-photo">
-            <img src="{{ '/assets/legacy-empower-your-next.jpg' | relative_url }}" alt="Promotional flyer for My Soul Is Satisfied, the women's conference that preceded Empower Your Next, presented by My Sisters Empowerment Network in Tampa, Florida." loading="lazy" width="960" height="502">
+          <div class="legacy-story-photo legacy-story-photo--flyer">
+            <img src="{{ '/assets/legacy-empower-your-next.jpg' | relative_url }}" alt="Promotional flyer for My Sisters Empowerment Network's 2024 Empower Your Next Conference, hosted by Founder/CEO Romona Armon in Macon, Georgia." loading="lazy" width="940" height="788">
+          </div>
+          <div class="legacy-story-photo legacy-story-photo--flyer">
+            <img src="{{ '/assets/legacy-my-soul-is-satisfied.jpg' | relative_url }}" alt="Promotional flyer for My Soul Is Satisfied, the women's conference that preceded Empower Your Next, presented by My Sisters Empowerment Network in Tampa, Florida." loading="lazy" width="742" height="960">
           </div>
           <div class="legacy-story-body">
             <span class="legacy-story-loc">Macon, Georgia &middot; 2024</span>
