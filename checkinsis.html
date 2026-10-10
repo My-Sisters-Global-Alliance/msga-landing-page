@@ -105,7 +105,8 @@ og_image: /assets/checkinsis-og.jpg
 .ci-honor-title-line1{display:block;font-weight:800;color:#082149;font-size:clamp(1.6rem,3.5vw,2.3rem);}
 .ci-honor-title-line2{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-accent-hero);font-weight:400;color:var(--pink-accent);font-size:clamp(1.8rem,4vw,2.6rem);margin-top:2px;}
 .ci-honor-widget-card{max-width:520px;margin:32px auto 0;background:#fff;border-radius:var(--radius-lg);border-top:4px solid var(--pink-accent);box-shadow:0 10px 28px rgba(194,71,122,0.16);padding:28px;text-align:center;}
-.ci-honor-widget-headline{display:inline-block;background:var(--pink-accent);color:#fff;font-weight:800;font-size:1.3rem;padding:12px 28px;border-radius:999px;margin-bottom:20px;}
+.ci-honor-widget-headline{display:block;color:#082149;font-weight:800;font-size:1.5rem;margin:0 0 4px;}
+.ci-honor-widget-sub{display:block;color:#5a5a6e;font-size:1rem;margin-bottom:18px;}
 
 .ci-honor-feed{display:grid;grid-template-columns:1fr;gap:20px;max-width:960px;margin:40px auto 0;position:relative;z-index:1;}
 @media(min-width:720px){.ci-honor-feed{grid-template-columns:repeat(2,1fr);}}
@@ -278,7 +279,8 @@ og_image: /assets/checkinsis-og.jpg
     </article>
     <div class="ci-honor-feed" id="ciHonorFeed" aria-live="polite" hidden></div>
     <div class="ci-honor-widget-card" id="nominate">
-      <span class="ci-honor-widget-headline">Nominate a Sister</span>
+      <h3 class="ci-honor-widget-headline">Honor a Sister</h3>
+      <span class="ci-honor-widget-sub">Fill out the form below <span aria-hidden="true">&darr;</span></span>
       <script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=G4a1ElMSW25RpXRU&p=other"></script>
       <givebutter-widget id="LWkvbQ"></givebutter-widget>
     </div>
@@ -296,7 +298,7 @@ og_image: /assets/checkinsis-og.jpg
     </div>
     <div class="ci-closing-actions">
       <a href="#challenge" class="btn btn-pink">I Checked In</a>
-      <a href="#honor-wall" class="btn btn-outline">Nominate a Sister</a>
+      <a href="#nominate" class="btn btn-outline">Honor a Sister</a>
     </div>
   </div>
 </section>
