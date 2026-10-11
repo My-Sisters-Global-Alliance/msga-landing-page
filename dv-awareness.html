@@ -1,0 +1,210 @@
+---
+layout: default
+title: Domestic Violence Awareness Month
+permalink: /dv-awareness/
+description: "Love should feel safe. MySGA's Domestic Violence Awareness Month resources for young women: warning signs, how to check in on a sister, national hotlines, and A Voice for La'Smockie memorial walk on October 31."
+---
+<style>
+/* Domestic Violence Awareness Month page — scoped under .dv- prefixes, page-local only. */
+.dv-page{--dv-purple:#5B2A86;--dv-purple-dark:#3B1A5A;--dv-lavender:#F1EAF7;}
+
+/* Quick exit — always visible, leaves the page and replaces it in history */
+.dv-exit{position:fixed;right:16px;bottom:16px;z-index:999;background:#B42318;color:#fff;border:0;
+border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-shadow:var(--shadow-md);cursor:pointer;}
+.dv-exit:hover{background:#8F1C13;}
+
+.dv-hero{background:linear-gradient(160deg,#5B2A86 0%,#3B1A5A 100%);color:#fff;padding:76px 0 84px;text-align:center;}
+.dv-hero .wrap{max-width:760px;}
+.dv-hero .eyebrow{color:var(--gold);}
+.dv-hero h1{color:#fff;font-size:clamp(2.1rem,4.5vw,3rem);margin:16px 0;}
+.dv-hero p{color:#EDE4F5;font-size:1.06rem;max-width:620px;margin:0 auto;line-height:1.7;}
+.dv-hero-note{margin-top:22px !important;font-size:0.88rem !important;opacity:.9;}
+
+.dv-section{padding:80px 0;background:#fff;}
+.dv-section.alt{background:#F1EAF7;}
+.dv-section .section-head .eyebrow{color:#5B2A86;}
+.dv-section .accent-bar{background:linear-gradient(90deg,#5B2A86,#B07CD8);}
+
+/* Hotline cards */
+.dv-help-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:900px;margin:0 auto;}
+@media(min-width:760px){.dv-help-grid{grid-template-columns:1fr 1fr;}}
+.dv-help-card{background:#fff;border:2px solid #5B2A86;border-radius:var(--radius-lg);padding:30px 28px;box-shadow:var(--shadow-sm);}
+.dv-help-card .dv-tag{display:inline-block;background:#F1EAF7;color:#5B2A86;font-size:0.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;}
+.dv-help-card h3{color:var(--navy);font-size:1.25rem;margin:12px 0 6px;}
+.dv-help-card p{color:var(--muted);font-size:0.94rem;line-height:1.6;margin-bottom:16px;}
+.dv-help-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+.dv-help-card li{font-size:1rem;color:var(--text);}
+.dv-help-card li strong{color:#5B2A86;}
+.dv-help-card a{color:var(--navy);font-weight:700;}
+.dv-emergency{max-width:900px;margin:22px auto 0;text-align:center;color:var(--muted);font-size:0.92rem;}
+
+/* Signs */
+.dv-signs-grid{display:grid;grid-template-columns:1fr;gap:28px;}
+@media(min-width:860px){.dv-signs-grid{grid-template-columns:1fr 1fr;}}
+.dv-signs{background:#fff;border-radius:var(--radius-lg);padding:30px 28px;box-shadow:var(--shadow-sm);}
+.dv-signs h3{color:var(--navy);font-size:1.15rem;margin-bottom:14px;}
+.dv-signs ul{padding-left:20px;margin:0;display:flex;flex-direction:column;gap:9px;}
+.dv-signs li{color:var(--text);font-size:0.97rem;line-height:1.55;}
+.dv-signs li::marker{color:#5B2A86;}
+
+/* Check in on a sister */
+.dv-steps{display:grid;grid-template-columns:1fr;gap:20px;counter-reset:dvstep;}
+@media(min-width:700px){.dv-steps{grid-template-columns:1fr 1fr;}}
+@media(min-width:1080px){.dv-steps{grid-template-columns:repeat(4,1fr);}}
+.dv-step{background:#F1EAF7;border-radius:var(--radius-md);padding:26px 22px;counter-increment:dvstep;}
+.dv-step::before{content:counter(dvstep);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#5B2A86;color:#fff;font-weight:800;margin-bottom:12px;}
+.dv-step h3{color:var(--navy);font-size:1.05rem;margin-bottom:6px;}
+.dv-step p{color:var(--muted);font-size:0.92rem;line-height:1.55;}
+
+/* Walk */
+.dv-walk{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
+@media(min-width:860px){.dv-walk{grid-template-columns:0.85fr 1.15fr;align-items:start;}}
+.dv-walk-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);background:#F1EAF7;}
+.dv-walk-photo img{display:block;width:100%;height:auto;}
+.dv-walk-body .eyebrow{color:#5B2A86;}
+.dv-walk-body h2{color:var(--navy);font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 16px;}
+.dv-walk-body p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:16px;}
+.dv-walk-tagline{font-style:italic;color:#5B2A86 !important;font-size:1.08rem !important;font-weight:600;}
+.dv-walk-details{list-style:none;padding:18px 22px;margin:0 0 18px;background:#fff;border-left:4px solid #5B2A86;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
+.dv-walk-details li{color:var(--text);font-size:0.97rem;}
+.dv-walk-details strong{display:inline-block;min-width:64px;color:#5B2A86;}
+.dv-walk-details a{color:var(--navy);font-weight:600;}
+.dv-walk-body .btn{margin-top:6px;}
+
+.dv-safety{padding:36px 0;background:#3B1A5A;color:#EDE4F5;text-align:center;}
+.dv-safety p{max-width:760px;margin:0 auto;font-size:0.9rem;line-height:1.7;}
+.dv-safety strong{color:#fff;}
+</style>
+
+<div class="dv-page">
+
+  <button type="button" class="dv-exit" id="dvExit" aria-label="Quick exit: leave this page now">Quick exit &times;</button>
+
+  <section class="dv-hero">
+    <div class="wrap">
+      <span class="eyebrow">Domestic Violence Awareness Month &middot; October</span>
+      <h1>Love should feel safe.</h1>
+      <p>Abuse doesn't always leave bruises. It can look like jealousy, control, or someone checking your phone. MySGA is here to help young women spot the signs early, check in on each other, and know where to get help.</p>
+      <p class="dv-hero-note">Need to leave this page fast? Tap <strong>Quick exit</strong> in the corner.</p>
+    </div>
+  </section>
+
+  <section class="dv-section" id="get-help">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Get Help Now</span>
+        <div class="accent-bar"></div>
+        <h2>Free, confidential, 24/7</h2>
+        <p>Trained advocates can talk through what's happening and help you plan your next step. You don't have to be sure it's abuse to reach out.</p>
+      </div>
+      <div class="dv-help-grid">
+        <div class="dv-help-card">
+          <span class="dv-tag">For teens &amp; young adults</span>
+          <h3>love is respect</h3>
+          <p>Support for dating relationships, including what's happening over text and social media.</p>
+          <ul>
+            <li><strong>Text</strong> LOVEIS to <a href="sms:22522?&amp;body=LOVEIS">22522</a></li>
+            <li><strong>Call</strong> <a href="tel:18663319474">1-866-331-9474</a></li>
+            <li><strong>Chat</strong> at <a href="https://www.loveisrespect.org/" target="_blank" rel="noopener">loveisrespect.org</a></li>
+          </ul>
+        </div>
+        <div class="dv-help-card">
+          <span class="dv-tag">For anyone in the U.S.</span>
+          <h3>National Domestic Violence Hotline</h3>
+          <p>Support for anyone affected by abuse, and connection to help where you live.</p>
+          <ul>
+            <li><strong>Call</strong> <a href="tel:18007997233">1-800-799-SAFE (7233)</a></li>
+            <li><strong>Text</strong> START to <a href="sms:88788?&amp;body=START">88788</a></li>
+            <li><strong>Chat</strong> at <a href="https://www.thehotline.org/" target="_blank" rel="noopener">thehotline.org</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="dv-emergency">In immediate danger? Call <strong>911</strong>.</p>
+    </div>
+  </section>
+
+  <section class="dv-section alt" id="signs">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Know the Signs</span>
+        <div class="accent-bar"></div>
+        <h2>Love shouldn't feel like this</h2>
+      </div>
+      <div class="dv-signs-grid">
+        <div class="dv-signs">
+          <h3>In person</h3>
+          <ul>
+            <li>They get jealous of your friends or family time.</li>
+            <li>They tell you what to wear or who you can talk to.</li>
+            <li>They put you down, then say &ldquo;I'm just playing.&rdquo;</li>
+            <li>You feel scared to say no or to disagree.</li>
+          </ul>
+        </div>
+        <div class="dv-signs">
+          <h3>Online &amp; on your phone</h3>
+          <ul>
+            <li>They check your phone or demand your passwords.</li>
+            <li>They track your location &ldquo;just to know you're safe.&rdquo;</li>
+            <li>They pressure you to send photos.</li>
+            <li>They blow up your phone when you don't answer.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dv-section" id="check-in">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Check In on Your Sister</span>
+        <div class="accent-bar"></div>
+        <h2>How to help a friend</h2>
+      </div>
+      <div class="dv-steps">
+        <div class="dv-step"><h3>Listen</h3><p>Let her talk without judging or rushing her.</p></div>
+        <div class="dv-step"><h3>Believe her</h3><p>Tell her it isn't her fault and she isn't alone.</p></div>
+        <div class="dv-step"><h3>Share a hotline</h3><p>Give her the numbers above. Let her choose the next step.</p></div>
+        <div class="dv-step"><h3>Keep checking in</h3><p>Stay close. One conversation is a start, not the end.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dv-section alt" id="walk">
+    <div class="wrap">
+      <div class="dv-walk">
+        <div class="dv-walk-photo">
+          <img src="{{ '/assets/la-smockie-walk-2026-flyer.jpg' | relative_url }}" alt="Flyer: A Voice for La'Smockie, Domestic Violence Awareness Memorial Walk. Walking in her memory. Speaking for those who cannot. Saturday, October 31, 2026, 11:00 AM, 3565 Case Street, Macon, GA 31204. Wear purple." loading="lazy" width="900" height="1390">
+        </div>
+        <div class="dv-walk-body">
+          <span class="eyebrow">In Memory &middot; Walk With Us</span>
+          <h2>A Voice for La&rsquo;Smockie</h2>
+          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
+          <p>Each year, the Domestic Violence Awareness Memorial Walk honors La&rsquo;Smockie Fountain and stands with everyone affected by domestic violence. For the past three years, My Sisters has taken part in this walk. This year, MySGA continues that commitment by volunteering at the walk.</p>
+          <ul class="dv-walk-details">
+            <li><strong>When</strong> Saturday, October 31, 2026 &middot; 11:00 AM</li>
+            <li><strong>Where</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=3565+Case+Street+Macon+GA+31204" target="_blank" rel="noopener">3565 Case Street, Macon, GA 31204</a></li>
+            <li><strong>Wear</strong> Purple</li>
+          </ul>
+          <p>Can't be in Macon? Stand with us from wherever you are: wear purple on October 31, share the hotlines, and check in on a sister.</p>
+          <a href="{{ '/get-involved/' | relative_url }}" class="btn btn-gold">Join the Alliance</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dv-safety">
+    <div class="wrap">
+      <p><strong>MySGA is not a crisis service.</strong> If you reach out to us, we'll connect you with the trained advocates above. If someone may be checking your phone or computer, use a safer device and clear your browsing history after visiting this page.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('dvExit');
+  function leave(){ window.location.replace('https://www.google.com'); }
+  if (btn) btn.addEventListener('click', leave);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') leave(); });
+})();
+</script>
