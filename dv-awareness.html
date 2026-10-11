@@ -2,7 +2,7 @@
 layout: default
 title: Domestic Violence Awareness Month
 permalink: /dv-awareness/
-description: "Love should feel safe. MySGA's Domestic Violence Awareness Month resources for young women: warning signs, how to check in on a sister, national hotlines, and the October 31 walk."
+description: "Love should feel safe. MySGA's Domestic Violence Awareness Month resources for young women: warning signs, how to check in on a sister, national hotlines, and A Voice for La'Smockie memorial walk on October 31."
 ---
 <style>
 /* Domestic Violence Awareness Month page — scoped under .dv- prefixes, page-local only. */
@@ -58,13 +58,17 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
 
 /* Walk */
 .dv-walk{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
-@media(min-width:860px){.dv-walk{grid-template-columns:1fr 1.2fr;}}
+@media(min-width:860px){.dv-walk{grid-template-columns:0.85fr 1.15fr;align-items:start;}}
 .dv-walk-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);background:#F1EAF7;}
 .dv-walk-photo img{display:block;width:100%;height:auto;}
 .dv-walk-body .eyebrow{color:#5B2A86;}
 .dv-walk-body h2{color:var(--navy);font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 16px;}
 .dv-walk-body p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:16px;}
-.dv-walk-date{display:inline-block;background:#5B2A86;color:#fff;font-weight:700;border-radius:999px;padding:8px 18px;font-size:0.9rem;margin-bottom:18px;}
+.dv-walk-tagline{font-style:italic;color:#5B2A86 !important;font-size:1.08rem !important;font-weight:600;}
+.dv-walk-details{list-style:none;padding:18px 22px;margin:0 0 18px;background:#fff;border-left:4px solid #5B2A86;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
+.dv-walk-details li{color:var(--text);font-size:0.97rem;}
+.dv-walk-details strong{display:inline-block;min-width:64px;color:#5B2A86;}
+.dv-walk-details a{color:var(--navy);font-weight:600;}
 .dv-walk-body .btn{margin-top:6px;}
 
 .dv-safety{padding:36px 0;background:#3B1A5A;color:#EDE4F5;text-align:center;}
@@ -169,14 +173,19 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
     <div class="wrap">
       <div class="dv-walk">
         <div class="dv-walk-photo">
-          <img src="{{ '/assets/legacy-domestic-violence-walk.jpg' | relative_url }}" alt="The Tree of Hope banner planted in memory of LaSmockie Fountain at the annual walk in Macon, Georgia supporting people affected by domestic violence." loading="lazy" width="1024" height="769">
+          <img src="{{ '/assets/la-smockie-walk-2026-flyer.jpg' | relative_url }}" alt="Flyer: A Voice for La'Smockie, Domestic Violence Awareness Memorial Walk. Walking in her memory. Speaking for those who cannot. Saturday, October 31, 2026, 11:00 AM, 3565 Case Street, Macon, GA 31204. Wear purple." loading="lazy" width="900" height="1390">
         </div>
         <div class="dv-walk-body">
-          <span class="eyebrow">Walk With Us</span>
-          <h2>We walk for every sister</h2>
-          <span class="dv-walk-date">Saturday, October 31, 2026 &middot; Macon, Georgia</span>
-          <p>For the past three years, My Sisters has joined the annual walk honoring LaSmockie Fountain and supporting people affected by domestic violence. This year, MySGA continues that commitment by volunteering at the October 31 walk.</p>
-          <p>Wherever you are, you can stand with us: wear purple, share the hotlines, and check in on a sister.</p>
+          <span class="eyebrow">In Memory &middot; Walk With Us</span>
+          <h2>A Voice for La&rsquo;Smockie</h2>
+          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
+          <p>Each year, the Domestic Violence Awareness Memorial Walk honors La&rsquo;Smockie Fountain and stands with everyone affected by domestic violence. For the past three years, My Sisters has taken part in this walk. This year, MySGA continues that commitment by volunteering at the walk.</p>
+          <ul class="dv-walk-details">
+            <li><strong>When</strong> Saturday, October 31, 2026 &middot; 11:00 AM</li>
+            <li><strong>Where</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=3565+Case+Street+Macon+GA+31204" target="_blank" rel="noopener">3565 Case Street, Macon, GA 31204</a></li>
+            <li><strong>Wear</strong> Purple</li>
+          </ul>
+          <p>Can't be in Macon? Stand with us from wherever you are: wear purple on October 31, share the hotlines, and check in on a sister.</p>
           <a href="{{ '/get-involved/' | relative_url }}" class="btn btn-gold">Join the Alliance</a>
         </div>
       </div>
