@@ -1,0 +1,179 @@
+---
+layout: default
+title: Legacy in Action
+permalink: /legacy-in-action/
+description: "Legacy in Action: the story of service that began years before MySGA — through My Sisters Empowerment Network — in Ghana, Flint, Orlando, Macon, and beyond."
+---
+<style>
+.legacy-in-action-stories{padding:88px 0;background:var(--ivory);}
+.legacy-in-action-stories.on-champagne{background:var(--champagne);}
+.legacy-story-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:8px;}
+@media(min-width:700px){.legacy-story-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1080px){.legacy-story-grid{grid-template-columns:repeat(3,1fr);}}
+.legacy-story-card{
+background:#fff;border:1px solid var(--champagne);border-radius:var(--radius-lg);
+overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;
+transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.legacy-story-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.legacy-story-photo{aspect-ratio:4/3;width:100%;overflow:hidden;background:var(--champagne);}
+.legacy-story-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.legacy-story-photo--flyer img{object-fit:contain;}
+.legacy-story-body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:10px;flex-grow:1;}
+.legacy-story-loc{
+display:inline-block;align-self:flex-start;background:rgba(44,105,177,0.1);color:var(--blue);
+font-size:0.7rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+padding:4px 10px;border-radius:999px;
+}
+.legacy-story-body h3{font-size:1.12rem;color:var(--navy);font-weight:700;}
+.legacy-story-body p{font-size:0.94rem;color:var(--muted);line-height:1.6;}
+.legacy-in-action-note{
+max-width:760px;margin:0 auto;text-align:center;padding:44px 0 8px;
+}
+.legacy-in-action-note p{color:var(--muted);font-size:0.92rem;font-style:italic;line-height:1.7;}
+.legacy-in-action-donate{padding:96px 0;background:var(--navy-dark);color:var(--ivory);text-align:center;position:relative;overflow:hidden;}
+.legacy-in-action-donate::after{
+content:"";position:absolute;right:-100px;bottom:-140px;width:380px;height:380px;border-radius:50%;
+background:radial-gradient(circle,rgba(254,195,56,0.14) 0%,rgba(254,195,56,0) 70%);
+}
+.legacy-in-action-donate .wrap{position:relative;z-index:1;max-width:680px;}
+.legacy-in-action-donate .eyebrow{color:var(--gold);}
+.legacy-in-action-donate h2{color:var(--ivory);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:16px 0 20px;}
+.legacy-in-action-donate p{color:var(--champagne);font-size:1.03rem;line-height:1.75;margin-bottom:32px;}
+</style>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-visual-logo" style="display:flex;"><img src="{{ '/assets/logo-blue.png' | relative_url }}" alt="MySGA — My Sisters Global Alliance"></div>
+      <span class="eyebrow">A History of Service. A Future of Greater Impact.</span>
+      <h1>Legacy in Action</h1>
+      <p>MySGA is the next chapter of work that began years earlier through My Sisters Empowerment Network&mdash;practical service, trusted relationships, and a commitment to show up wherever help was needed.</p>
+    </div>
+  </section>
+
+  <section class="legacy-in-action-stories">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Featured Stories</span>
+        <div class="accent-bar"></div>
+        <h2>Showing up, in person</h2>
+      </div>
+      <div class="legacy-story-grid">
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-ghana.jpg' | relative_url }}" alt="Romona and Afua, MySGA's sister in Ghana, stand together behind a table of sanitary products, first aid kits, and other essential items provided to an orphanage in Ghana." loading="lazy" width="428" height="760">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Ghana &middot; 2025</span>
+            <h3>Equipping an Orphanage</h3>
+            <p>My Sisters Empowerment Network brought sanitary products, school supplies, and other essential items to an orphanage in Ghana. Romona and Afua&mdash;our sister in Ghana&mdash;stand with part of the supplies provided for the outreach.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-flint-water-drive.jpg' | relative_url }}" alt="Volunteers unload pallets of bottled water collected during the Central Georgia water drive for families affected by the Flint, Michigan water crisis." loading="lazy" width="960" height="720">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Flint, Michigan &middot; 2016</span>
+            <h3>Sending a Semi-Truckload of Water</h3>
+            <p>Moved by her family's personal connection to Flint&mdash;her husband is from the city&mdash;Romona organized a Central Georgia water drive through My Sisters. Her daughter, Jaylin, joined the effort, and local churches and schools partnered to collect enough bottled water to send a semi-truckload to families affected by the Flint water crisis.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-orlando.jpg' | relative_url }}" alt="Community members kneel at a row of memorial crosses honoring victims of the Pulse nightclub shooting in Orlando, Florida." loading="lazy" width="760" height="760">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Orlando, Florida &middot; June 2016</span>
+            <h3>Showing Up for Orlando</h3>
+            <p>In the week following the Pulse nightclub shooting, Romona returned each day to stand with the Orlando community in prayer, comfort, and support.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="legacy-in-action-stories on-champagne">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Continuing Legacy</span>
+        <div class="accent-bar"></div>
+        <h2>A commitment that carries forward</h2>
+      </div>
+      <div class="legacy-story-grid">
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-ronald-mcdonald-house.jpg' | relative_url }}" alt="A handwritten note in the Ronald McDonald House kitchen in Macon, Georgia, thanking My Sisters for providing dinner to families staying there." loading="lazy" width="760" height="760">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Macon, Georgia &middot; February 10, 2015</span>
+            <h3>Serving 13 Families in Macon</h3>
+            <p>My Sisters prepared and provided dinner for 13 families staying at Ronald McDonald House in Macon while their children received medical care.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-domestic-violence-walk.jpg' | relative_url }}" alt="The Tree of Hope banner planted in memory of LaSmockie Fountain at the annual walk in Macon, Georgia supporting people affected by domestic violence." loading="lazy" width="351" height="580">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Macon, Georgia &middot; Annual Participation</span>
+            <h3>Supporting the Annual Domestic-Violence Walk</h3>
+            <p>Three years ago, My Sisters began participating in the annual walk honoring LaSmockie Fountain and supporting people affected by domestic violence. MySGA will continue that commitment by volunteering at the October 31, 2026 walk. Photograph used with permission.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo legacy-story-photo--flyer">
+            <img src="{{ '/assets/legacy-my-soul-is-satisfied.jpg' | relative_url }}" alt="Promotional flyer for the My Soul Is Satisfied Women's Conference, presented by My Sisters Empowerment Network at Winner's Worship Center in Tampa, Florida." loading="lazy" width="742" height="960">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Tampa, Florida &middot; 2018</span>
+            <h3>My Soul Is Satisfied</h3>
+            <p>My Sisters Empowerment Network presented the My Soul Is Satisfied Women's Conference at Winner's Worship Center in Tampa, Florida. The one-day gathering brought women together with guest speakers for encouragement and practical support.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo legacy-story-photo--flyer">
+            <img src="{{ '/assets/legacy-empower-your-next.jpg' | relative_url }}" alt="Promotional flyer for My Sisters Empowerment Network's 2024 Empower Your Next Conference, hosted by Founder/CEO Romona Armon in Macon, Georgia." loading="lazy" width="940" height="788">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Macon, Georgia &middot; 2024</span>
+            <h3>Empower Your Next</h3>
+            <p>In 2024, My Sisters Empowerment Network hosted the Empower Your Next Conference at the Edgar H. Wilson Convention Center in Macon, Georgia, with speakers on strategy, life transitions, health, and financial legacy building.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
+          <div class="legacy-story-photo">
+            <img src="{{ '/assets/legacy-rolling-fork.jpg' | relative_url }}" alt="The Rolling Fork, Mississippi courthouse displaying a &quot;Rolling Fork Will Rise Up&quot; banner after the March 2023 tornado." loading="lazy" width="360" height="480">
+          </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Rolling Fork, Mississippi &middot; 2023</span>
+            <h3>Responding to Rolling Fork</h3>
+            <p>Following the March 2023 tornado, My Sisters Empowerment Network sent supplies and financial assistance to support recovery in Rolling Fork, Mississippi&mdash;a community connected to Romona through her family roots.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="legacy-in-action-note">
+        <p>These photographs capture only part of the story. Much of the work happened before MySGA had formal programs, impact tracking, or someone assigned to document each moment. The priority was meeting the need in front of us.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="legacy-in-action-donate">
+    <div class="wrap">
+      <span class="eyebrow">Carry the Work Forward</span>
+      <h2>Help the Legacy Continue</h2>
+      <p>For more than a decade, My Sisters has responded with practical help, compassionate presence, and community partnership. Today, MySGA is building the structure to carry that work forward. Your support helps provide meals, essential supplies, educational opportunities, community programs, and timely assistance where it is needed most.</p>
+      <a href="{{ '/donate/' | relative_url }}" class="btn btn-gold">Support the Work</a>
+    </div>
+  </section>
