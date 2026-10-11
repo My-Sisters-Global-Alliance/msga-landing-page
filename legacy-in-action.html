@@ -19,7 +19,6 @@ transition:transform .25s var(--ease), box-shadow .25s var(--ease);
 .legacy-story-photo{aspect-ratio:4/3;width:100%;overflow:hidden;background:var(--champagne);}
 .legacy-story-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .legacy-story-photo--flyer img{object-fit:contain;}
-.legacy-story-photo--flyer + .legacy-story-photo--flyer{border-top:1px solid var(--champagne);}
 .legacy-story-body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:10px;flex-grow:1;}
 .legacy-story-loc{
 display:inline-block;align-self:flex-start;background:rgba(44,105,177,0.1);color:var(--blue);
@@ -131,15 +130,23 @@ background:radial-gradient(circle,rgba(254,195,56,0.14) 0%,rgba(254,195,56,0) 70
 
         <div class="legacy-story-card">
           <div class="legacy-story-photo legacy-story-photo--flyer">
-            <img src="{{ '/assets/legacy-empower-your-next.jpg' | relative_url }}" alt="Promotional flyer for My Sisters Empowerment Network's 2024 Empower Your Next Conference, hosted by Founder/CEO Romona Armon in Macon, Georgia." loading="lazy" width="940" height="788">
+            <img src="{{ '/assets/legacy-my-soul-is-satisfied.jpg' | relative_url }}" alt="Promotional flyer for the My Soul Is Satisfied Women's Conference, presented by My Sisters Empowerment Network at Winner's Worship Center in Tampa, Florida." loading="lazy" width="742" height="960">
           </div>
+          <div class="legacy-story-body">
+            <span class="legacy-story-loc">Tampa, Florida</span>
+            <h3>My Soul Is Satisfied</h3>
+            <p>My Sisters Empowerment Network presented the My Soul Is Satisfied Women's Conference at Winner's Worship Center in Tampa, Florida. The one-day gathering brought women together with guest speakers for encouragement and practical support.</p>
+          </div>
+        </div>
+
+        <div class="legacy-story-card">
           <div class="legacy-story-photo legacy-story-photo--flyer">
-            <img src="{{ '/assets/legacy-my-soul-is-satisfied.jpg' | relative_url }}" alt="Promotional flyer for My Soul Is Satisfied, the women's conference that preceded Empower Your Next, presented by My Sisters Empowerment Network in Tampa, Florida." loading="lazy" width="742" height="960">
+            <img src="{{ '/assets/legacy-empower-your-next.jpg' | relative_url }}" alt="Promotional flyer for My Sisters Empowerment Network's 2024 Empower Your Next Conference, hosted by Founder/CEO Romona Armon in Macon, Georgia." loading="lazy" width="940" height="788">
           </div>
           <div class="legacy-story-body">
             <span class="legacy-story-loc">Macon, Georgia &middot; 2024</span>
             <h3>Empower Your Next</h3>
-            <p>After COVID-19 paused My Soul Is Satisfied, My Sisters Empowerment Network resumed its annual women's gathering in 2024 as the Empower Your Next Conference.</p>
+            <p>In 2024, My Sisters Empowerment Network hosted the Empower Your Next Conference at the Edgar H. Wilson Convention Center in Macon, Georgia, with speakers on strategy, life transitions, health, and financial legacy building.</p>
           </div>
         </div>
 
