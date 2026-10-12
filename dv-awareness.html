@@ -65,6 +65,9 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
 .dv-walk-body h2{color:var(--navy);font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 16px;}
 .dv-walk-body p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:16px;}
 .dv-walk-tagline{font-style:italic;color:#5B2A86 !important;font-size:1.08rem !important;font-weight:600;}
+.dv-quote{margin:4px 0 20px;padding:4px 0 4px 20px;border-left:4px solid #B07CD8;}
+.dv-quote p{font-size:1.08rem !important;font-style:italic;color:var(--navy) !important;margin-bottom:6px !important;}
+.dv-quote cite{font-style:normal;font-size:0.88rem;font-weight:700;color:#5B2A86;}
 .dv-walk-details{list-style:none;padding:18px 22px;margin:0 0 18px;background:#fff;border-left:4px solid #5B2A86;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
 .dv-walk-details li{color:var(--text);font-size:0.97rem;}
 .dv-walk-details strong{display:inline-block;min-width:64px;color:#5B2A86;}
@@ -86,6 +89,34 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
       <h1>Love should feel safe.</h1>
       <p>Abuse doesn't always leave bruises. It can look like jealousy, control, or someone checking your phone. MySGA is here to help young women spot the signs early, check in on each other, and know where to get help.</p>
       <p class="dv-hero-note">Need to leave this page fast? Tap <strong>Quick exit</strong> in the corner.</p>
+    </div>
+  </section>
+
+  <section class="dv-section alt" id="walk">
+    <div class="wrap">
+      <div class="dv-walk">
+        <div class="dv-walk-photo">
+          <img src="{{ '/assets/la-smockie-walk-2026-flyer.jpg' | relative_url }}" alt="Flyer: A Voice for La'Smockie, Domestic Violence Awareness Memorial Walk. Walking in her memory. Speaking for those who cannot. Saturday, October 31, 2026, 11:00 AM, 3565 Case Street, Macon, GA 31204. Wear purple." loading="lazy" width="900" height="1390">
+        </div>
+        <div class="dv-walk-body">
+          <span class="eyebrow">In Memory &middot; Walk With Us</span>
+          <h2>A Voice for La&rsquo;Smockie</h2>
+          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
+          <p>La&rsquo;Smockie Fountain was a loving mother and, in her family&rsquo;s words, the life of the party&mdash;a people-person with a bright smile who loved to dance. After she lost her life to domestic violence in 2015, her family turned their grief into a mission: helping others recognize abuse and get out before it&rsquo;s too late.</p>
+          <blockquote class="dv-quote">
+            <p>&ldquo;She was such a lovely person, very beautiful, a great mother, and she absolutely loved to dance.&rdquo;</p>
+            <cite>Sharon Stafford, La&rsquo;Smockie&rsquo;s aunt</cite>
+          </blockquote>
+          <p>My Sisters is proud to partner with <strong>Loved Ones Against Domestic Violence (LOADV)</strong>, the sponsor of the Domestic Violence Awareness Memorial Walk. Each year, the walk honors La&rsquo;Smockie Fountain and stands with everyone affected by domestic violence. My Sisters has walked with LOADV for the past three years, and on October 31 we walk together again.</p>
+          <ul class="dv-walk-details">
+            <li><strong>When</strong> Saturday, October 31, 2026 &middot; 11:00 AM</li>
+            <li><strong>Where</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=3565+Case+Street+Macon+GA+31204" target="_blank" rel="noopener">3565 Case Street, Macon, GA 31204</a></li>
+            <li><strong>Wear</strong> Purple</li>
+          </ul>
+          <p>Can't be in Macon? Stand with us from wherever you are: wear purple on October 31, share the hotlines below, and check in on a sister.</p>
+          <a href="{{ '/get-involved/' | relative_url }}" class="btn btn-gold">Join the Alliance</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -165,29 +196,6 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
         <div class="dv-step"><h3>Believe her</h3><p>Tell her it isn't her fault and she isn't alone.</p></div>
         <div class="dv-step"><h3>Share a hotline</h3><p>Give her the numbers above. Let her choose the next step.</p></div>
         <div class="dv-step"><h3>Keep checking in</h3><p>Stay close. One conversation is a start, not the end.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="dv-section alt" id="walk">
-    <div class="wrap">
-      <div class="dv-walk">
-        <div class="dv-walk-photo">
-          <img src="{{ '/assets/la-smockie-walk-2026-flyer.jpg' | relative_url }}" alt="Flyer: A Voice for La'Smockie, Domestic Violence Awareness Memorial Walk. Walking in her memory. Speaking for those who cannot. Saturday, October 31, 2026, 11:00 AM, 3565 Case Street, Macon, GA 31204. Wear purple." loading="lazy" width="900" height="1390">
-        </div>
-        <div class="dv-walk-body">
-          <span class="eyebrow">In Memory &middot; Walk With Us</span>
-          <h2>A Voice for La&rsquo;Smockie</h2>
-          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
-          <p>Each year, the Domestic Violence Awareness Memorial Walk honors La&rsquo;Smockie Fountain and stands with everyone affected by domestic violence. For the past three years, My Sisters has taken part in this walk. This year, MySGA continues that commitment by volunteering at the walk.</p>
-          <ul class="dv-walk-details">
-            <li><strong>When</strong> Saturday, October 31, 2026 &middot; 11:00 AM</li>
-            <li><strong>Where</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=3565+Case+Street+Macon+GA+31204" target="_blank" rel="noopener">3565 Case Street, Macon, GA 31204</a></li>
-            <li><strong>Wear</strong> Purple</li>
-          </ul>
-          <p>Can't be in Macon? Stand with us from wherever you are: wear purple on October 31, share the hotlines, and check in on a sister.</p>
-          <a href="{{ '/get-involved/' | relative_url }}" class="btn btn-gold">Join the Alliance</a>
-        </div>
       </div>
     </div>
   </section>

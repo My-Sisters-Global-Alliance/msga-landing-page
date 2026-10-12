@@ -17,6 +17,9 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
 .active-campaign-body h3{color:var(--navy);font-size:1.4rem;}
 .active-campaign-tagline{color:var(--muted);font-size:1rem;}
 .active-campaign-body .btn{align-self:flex-start;margin-top:10px;}
+.active-campaign-card--stack .active-campaign-image,.active-campaign-card--stack .active-campaign-body{flex:1 1 100%;}
+.btn-purple{background:#5B2A86;color:#fff;box-shadow:var(--shadow-sm);}
+.btn-purple:hover{background:#3B1A5A;color:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md);}
 </style>
 
   <section class="page-hero">
@@ -37,7 +40,7 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
         <h3 class="active-campaigns-title">Active Now</h3>
         <div class="active-campaigns-grid">
           {% for campaign in site.data.active_campaigns %}
-          <div class="active-campaign-card">
+          <div class="active-campaign-card{% if campaign.layout == 'stack' %} active-campaign-card--stack{% endif %}">
             <div class="active-campaign-image">
               <img src="{{ campaign.image | relative_url }}" alt="">
             </div>
@@ -45,7 +48,7 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
               <span class="active-campaign-category">{{ campaign.category }}</span>
               <h3>{{ campaign.title }}</h3>
               <p class="active-campaign-tagline">{{ campaign.tagline }}</p>
-              <a href="{{ campaign.button_url | relative_url }}" class="btn btn-pink">{{ campaign.button_text }}</a>
+              <a href="{{ campaign.button_url | relative_url }}" class="btn {{ campaign.button_class | default: 'btn-pink' }}">{{ campaign.button_text }}</a>
             </div>
           </div>
           {% endfor %}
@@ -111,6 +114,12 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
             <h3>Advocacy Initiatives</h3>
             <p>Amplifying the voices of women and girls and equipping them to advocate for themselves and each other.</p>
             <a class="program-link" href="mailto:info@mysistersglobal.org?subject=Interested%20in%20Advocacy%20Initiatives">Ask about this &rarr;</a>
+          </div>
+          <div class="program-item">
+            <span class="program-tag">Pillar: Empower</span>
+            <h3>Domestic Violence Awareness</h3>
+            <p>Helping young women recognize unhealthy relationships early, check in on each other, and connect with national hotlines&mdash;and partnering with Loved Ones Against Domestic Violence (LOADV) on the annual memorial walk for La&rsquo;Smockie Fountain.</p>
+            <a class="program-link" href="{{ '/dv-awareness/' | relative_url }}">Get help &amp; learn more &rarr;</a>
           </div>
         </div>
       </div>

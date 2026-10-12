@@ -6,3 +6,11 @@
   image: "/assets/checkinsis-campaign.jpg"
   button_text: "Take the #CheckInSis Challenge"
   button_url: "/checkinsis/"
+- title: "A Voice for La’Smockie"
+  category: "A Domestic Violence Awareness Month campaign"
+  tagline: "Love should feel safe. Know the signs, check in on your sister, and walk with us October 31."
+  image: "/assets/dv-awareness-campaign.jpg"
+  button_text: "Get Help & Walk With Us"
+  button_url: "/dv-awareness/"
+  button_class: "btn-purple"
+  layout: "stack" # image on top, full width, to match the #CheckInSis card
