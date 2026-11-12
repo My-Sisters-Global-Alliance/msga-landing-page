@@ -1,16 +1,8 @@
 # Campaigns shown in the "Active Now" row on the Our Work page. Add another
-# entry here to add another card — no template changes needed.
-- title: "#CheckInSis"
-  category: "A Breast Cancer Awareness Month campaign"
-  tagline: "Check yourself. Then check on her."
-  image: "/assets/checkinsis-campaign.jpg"
-  button_text: "Take the #CheckInSis Challenge"
-  button_url: "/checkinsis/"
-- title: "A Voice for La’Smockie"
-  category: "A Domestic Violence Awareness Month campaign"
-  tagline: "Love should feel safe. Know the signs, check in on your sister, and walk with us October 31."
-  image: "/assets/dv-awareness-campaign-loadv.jpg"
-  button_text: "Get Help & Walk With Us"
-  button_url: "/dv-awareness/"
-  button_class: "btn-purple"
-  layout: "stack" # image on top, full width, to match the #CheckInSis card
+# entry here to add another card — no template changes needed. "image" is
+# optional; cards without one show as text-only.
+- title: "Homecoming to Prom"
+  category: "A dress drive for girls in Central Georgia"
+  tagline: "We're collecting gently used homecoming and formal dresses, shoes, and accessories through January, so 25 girls can pick out a dress for free at our Prom Pop-Up in March 2027."
+  button_text: "Donate a Dress"
+  button_url: "mailto:info@mysistersglobal.org?subject=Homecoming%20to%20Prom%20Dress%20Donation"

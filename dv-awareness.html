@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Domestic Violence Awareness Month
+title: Get Help: Domestic Violence
 permalink: /dv-awareness/
-description: "Love should feel safe. MySGA's Domestic Violence Awareness Month resources for young women: warning signs, how to check in on a sister, national hotlines, and A Voice for La'Smockie memorial walk on October 31."
+description: "Love should feel safe. MySGA's Domestic Violence Awareness Month resources for young women: warning signs, how to check in on a sister, national hotlines, and how to help a friend."
 ---
 <style>
 /* Domestic Violence Awareness Month page — scoped under .dv- prefixes, page-local only. */
@@ -51,29 +51,25 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
 .dv-steps{display:grid;grid-template-columns:1fr;gap:20px;counter-reset:dvstep;}
 @media(min-width:700px){.dv-steps{grid-template-columns:1fr 1fr;}}
 @media(min-width:1080px){.dv-steps{grid-template-columns:repeat(4,1fr);}}
-.dv-step{background:#F1EAF7;border-radius:var(--radius-md);padding:26px 22px;counter-increment:dvstep;}
+.dv-step{background:#fff;border-radius:var(--radius-md);padding:26px 22px;counter-increment:dvstep;}
 .dv-step::before{content:counter(dvstep);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#5B2A86;color:#fff;font-weight:800;margin-bottom:12px;}
 .dv-step h3{color:var(--navy);font-size:1.05rem;margin-bottom:6px;}
 .dv-step p{color:var(--muted);font-size:0.92rem;line-height:1.55;}
 
-/* Walk */
-.dv-walk{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
-@media(min-width:860px){.dv-walk{grid-template-columns:0.85fr 1.15fr;align-items:start;}}
-.dv-walk-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);background:#F1EAF7;}
-.dv-walk-photo img{display:block;width:100%;height:auto;}
-.dv-walk-body .eyebrow{color:#5B2A86;}
-.dv-walk-body h2{color:var(--navy);font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 16px;}
-.dv-walk-body p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:16px;}
-.dv-walk-tagline{font-style:italic;color:#5B2A86 !important;font-size:1.08rem !important;font-weight:600;}
-.dv-quote{margin:4px 0 20px;padding:4px 0 4px 20px;border-left:4px solid #B07CD8;}
-.dv-quote p{font-size:1.08rem !important;font-style:italic;color:var(--navy) !important;margin-bottom:6px !important;}
-.dv-quote cite{font-style:normal;font-size:0.88rem;font-weight:700;color:#5B2A86;}
-.dv-walk-details{list-style:none;padding:18px 22px;margin:0 0 18px;background:#fff;border-left:4px solid #5B2A86;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
-.dv-walk-details li{color:var(--text);font-size:0.97rem;}
-.dv-walk-details strong{display:inline-block;min-width:64px;color:#5B2A86;}
-.dv-walk-details a{color:var(--navy);font-weight:600;}
-.dv-walk-body .btn{margin-top:6px;}
 
+.dv-compare{max-width:900px;margin:0 auto;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid #E4D7F0;}
+.dv-compare-head,.dv-compare-row{display:grid;grid-template-columns:1fr 1fr;}
+.dv-compare-head span{padding:14px 22px;font-weight:800;font-size:0.95rem;letter-spacing:.03em;text-transform:uppercase;}
+.dv-compare-head .ok{background:#E7F5EC;color:#1E6B3A;}
+.dv-compare-head .no{background:#FCE8E6;color:#9B2318;}
+.dv-compare-row span{padding:14px 22px;font-size:0.96rem;line-height:1.5;color:var(--text);border-top:1px solid #EEE6F5;}
+.dv-compare-row span:first-child{background:#FAFDFB;}
+.dv-compare-row span:last-child{background:#FFFBFA;}
+.dv-compare-note{max-width:760px;margin:22px auto 0;text-align:center;color:var(--muted);font-size:0.95rem;}
+.dv-compare-note a{color:var(--navy);font-weight:700;}
+.dv-walk-link{padding:28px 0;background:#fff;text-align:center;border-top:1px solid #EEE6F5;}
+.dv-walk-link p{margin:0;color:var(--muted);font-size:0.97rem;}
+.dv-walk-link a{color:#5B2A86;font-weight:700;}
 .dv-safety{padding:36px 0;background:#3B1A5A;color:#EDE4F5;text-align:center;}
 .dv-safety p{max-width:760px;margin:0 auto;font-size:0.9rem;line-height:1.7;}
 .dv-safety strong{color:#fff;}
@@ -85,37 +81,10 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
 
   <section class="dv-hero">
     <div class="wrap">
-      <span class="eyebrow">Domestic Violence Awareness Month &middot; October</span>
+      <span class="eyebrow">Get Help &middot; Domestic Violence</span>
       <h1>Love should feel safe.</h1>
       <p>Abuse doesn't always leave bruises. It can look like jealousy, control, or someone checking your phone. MySGA is here to help young women spot the signs early, check in on each other, and know where to get help.</p>
       <p class="dv-hero-note">Need to leave this page fast? Tap <strong>Quick exit</strong> in the corner.</p>
-    </div>
-  </section>
-
-  <section class="dv-section alt" id="walk">
-    <div class="wrap">
-      <div class="dv-walk">
-        <div class="dv-walk-photo">
-          <img src="{{ '/assets/mysga-loadv-walk-2026-flyer.jpg' | relative_url }}" alt="Flyer: My Sisters Global Alliance is walking with LOADV (Loved Ones Against Domestic Violence). 11th Annual Domestic Violence Awareness Memorial Walk, A Voice for La'Smockie. Walking in her memory, speaking for those who cannot. Saturday, October 31, 2026, 11:00 AM, 3565 Case Street, Macon, GA 31204. Wear purple. Hosted by LOADV, in partnership with My Sisters Global Alliance." loading="lazy" width="900" height="1124">
-        </div>
-        <div class="dv-walk-body">
-          <span class="eyebrow">In Memory &middot; Walk With Us</span>
-          <h2>A Voice for La&rsquo;Smockie</h2>
-          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
-          <p>La&rsquo;Smockie Fountain was a loving mother and, in her family&rsquo;s words, the life of the party&mdash;a people-person with a bright smile who loved to dance. After she lost her life to domestic violence in 2015, her family turned their grief into a mission: helping others recognize abuse and get out before it&rsquo;s too late.</p>
-          <blockquote class="dv-quote">
-            <p>&ldquo;She was such a lovely person, very beautiful, a great mother, and she absolutely loved to dance.&rdquo;</p>
-            <cite>Sharon Stafford, La&rsquo;Smockie&rsquo;s aunt</cite>
-          </blockquote>
-          <p>My Sisters is proud to partner with <strong>Loved Ones Against Domestic Violence (LOADV)</strong>, the sponsor of the Domestic Violence Awareness Memorial Walk. Each year, the walk honors La&rsquo;Smockie Fountain and stands with everyone affected by domestic violence. My Sisters has walked with LOADV for the past three years, and on October 31 we walk together again.</p>
-          <ul class="dv-walk-details">
-            <li><strong>When</strong> Saturday, October 31, 2026 &middot; 11:00 AM</li>
-            <li><strong>Where</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=3565+Case+Street+Macon+GA+31204" target="_blank" rel="noopener">3565 Case Street, Macon, GA 31204</a></li>
-            <li><strong>Wear</strong> Purple</li>
-          </ul>
-          <p>Can't be in Macon? Stand with us from wherever you are: wear purple on October 31, share the hotlines below, and check in on a sister.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -183,7 +152,28 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
     </div>
   </section>
 
-  <section class="dv-section" id="check-in">
+  <section class="dv-section" id="healthy">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Healthy vs. Unhealthy</span>
+        <div class="accent-bar"></div>
+        <h2>What love should feel like</h2>
+        <p>Every relationship has ups and downs. But some things are never okay. Here's how to tell the difference.</p>
+      </div>
+      <div class="dv-compare" role="table" aria-label="Healthy versus unhealthy relationship behaviors">
+        <div class="dv-compare-head" role="row"><span role="columnheader" class="ok">Healthy</span><span role="columnheader" class="no">Unhealthy</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">You both respect each other's phone and privacy.</span><span role="cell">They go through your phone or demand your passwords.</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">You keep your friends, family, and activities.</span><span role="cell">They make you choose between them and everyone else.</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">You can say no without fear.</span><span role="cell">Saying no leads to anger, guilt trips, or threats.</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">Disagreements get talked through.</span><span role="cell">Arguments end with yelling, name-calling, or pushing.</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">They support your goals and cheer you on.</span><span role="cell">They put you down or make you feel small.</span></div>
+        <div class="dv-compare-row" role="row"><span role="cell">You feel safe being yourself.</span><span role="cell">You feel like you're walking on eggshells.</span></div>
+      </div>
+      <p class="dv-compare-note">If more of your relationship looks like the right column, you're not overreacting. Text <strong>LOVEIS</strong> to <a href="sms:22522?&amp;body=LOVEIS">22522</a> to talk it through with someone.</p>
+    </div>
+  </section>
+
+  <section class="dv-section alt" id="check-in">
     <div class="wrap">
       <div class="section-head center">
         <span class="eyebrow">Check In on Your Sister</span>
@@ -196,6 +186,12 @@ border-radius:999px;padding:12px 20px;font:700 0.85rem/1 var(--font-base);box-sh
         <div class="dv-step"><h3>Share a hotline</h3><p>Give her the numbers above. Let her choose the next step.</p></div>
         <div class="dv-step"><h3>Keep checking in</h3><p>Stay close. One conversation is a start, not the end.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section class="dv-walk-link">
+    <div class="wrap">
+      <p>MySGA walks with LOADV every October in memory of La&rsquo;Smockie Fountain. <a href="{{ '/our-work/' | relative_url }}#la-smockie-walk">See photos from the 2026 memorial walk &rarr;</a></p>
     </div>
   </section>
 
