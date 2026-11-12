@@ -1,0 +1,26 @@
+<!-- Google Analytics 4 (G-XFNKPR8Q4R). Pages with no_analytics: true in their
+     front matter (the Get Help page) skip this for visitor safety. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XFNKPR8Q4R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XFNKPR8Q4R');
+// Conversions for Ad Grants: mark these as key events in GA4 (Admin > Events).
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href]');
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  if (/\/donate\/?(#|$)|givebutter\.com/i.test(href)) {
+    gtag('event', 'donate_click', { link_text: (a.textContent || '').trim().slice(0, 60), page_path: location.pathname });
+  } else if (/^mailto:/i.test(href)) {
+    var subject = (href.split('subject=')[1] || '').split('&')[0];
+    gtag('event', 'contact_email', { email_subject: decodeURIComponent(subject).slice(0, 80), page_path: location.pathname });
+  }
+}, true);
+document.addEventListener('submit', function (e) {
+  if (e.target && e.target.classList && e.target.classList.contains('join-form')) {
+    gtag('event', 'sign_up', { method: 'newsletter', page_path: location.pathname });
+  }
+}, true);
+</script>
