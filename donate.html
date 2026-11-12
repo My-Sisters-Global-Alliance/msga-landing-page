@@ -32,6 +32,51 @@ description: "Support MySGA (My Sisters Global Alliance) with a tax-deductible d
     </div>
   </section>
 
+  {% if site.data.supporters and site.data.supporters.size > 0 %}
+  {% assign founding = site.data.supporters | where: "founding", true %}
+  {% assign others = site.data.supporters | where_exp: "s", "s.founding != true" %}
+  <section class="contact-block supporters" id="supporters">
+    <style>
+    .supporters .section-head{margin-bottom:32px;}
+    .supporters-founding{display:grid;grid-template-columns:1fr;gap:20px;max-width:1000px;margin:0 auto;}
+    @media(min-width:760px){.supporters-founding{grid-template-columns:repeat(3,1fr);}}
+    .supporter-feature{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:28px 22px;text-align:center;border-top:6px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .supporter-feature .supporter-heart{display:inline-flex;width:42px;height:42px;border-radius:50%;align-items:center;justify-content:center;background:#FFF4D6;color:#CD7817;margin-bottom:12px;}
+    .supporter-feature h3{color:var(--navy);font-size:1.15rem;line-height:1.4;margin:0;}
+    .supporter-name{white-space:nowrap;}
+    .supporter-feature p{color:var(--muted);margin:8px 0 0;font-size:0.95rem;line-height:1.6;}
+    .supporters-others-title{text-align:center;font-size:0.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:40px 0 14px;}
+    .supporters-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;padding:0;list-style:none;}
+    .supporters-list li{background:#fff;border-radius:999px;padding:8px 16px;box-shadow:var(--shadow-sm);color:var(--navy);font-weight:600;font-size:0.95rem;}
+    </style>
+    <div class="wrap">
+      {% if founding.size > 0 %}
+      <div class="section-head center">
+        <span class="eyebrow">With Gratitude</span>
+        <div class="accent-bar"></div>
+        <h2>Our Founding Givers</h2>
+        <p>We are deeply grateful to the founding givers whose generosity helped bring My Sisters Global Alliance to life and continues to support women and girls today.</p>
+      </div>
+      <div class="supporters-founding">
+        {% for s in founding %}
+        <div class="supporter-feature">
+          <span class="supporter-heart" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3.1 4.5 6.9 4.5c2.1 0 3.6 1.2 5.1 3 1.5-1.8 3-3 5.1-3 3.8 0 6 3.8 4.5 7.2C19.5 16.4 12 21 12 21z"/></svg></span>
+          <h3>{% assign parts = s.name | split: ' & ' %}{% for part in parts %}<span class="supporter-name">{{ part }}</span>{% unless forloop.last %} &amp; {% endunless %}{% endfor %}</h3>
+          {% if s.note %}<p>{{ s.note }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if others.size > 0 %}
+      <p class="supporters-others-title">{% if founding.size > 0 %}And Our Supporters{% else %}Thank You to Our Supporters{% endif %}</p>
+      <ul class="supporters-list">
+        {% for s in others %}<li>{{ s.name }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
   <section class="contact-block" style="background:var(--champagne,#FBF3D9);">
     <div class="wrap">
       <div class="contact-card" style="max-width:520px;margin:0 auto;text-align:center;">
