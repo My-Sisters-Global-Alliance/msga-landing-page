@@ -1,0 +1,12 @@
+# Donors thanked by name on the Donate page (#supporters).
+# Add someone only after they've agreed to be named. Never list gift amounts.
+#   name     — exactly how they should be listed
+#   founding — true for Founding Givers (shown as cards at the top)
+#   note     — optional short line under a Founding Giver's name
+# Anyone without founding: true is listed below as a simple name tag.
+- name: "MSgt. P. Washington (Ret.) & Dr. V. Washington"
+  founding: true
+- name: "Pastor R. Hunt & Pastor A. Hunt"
+  founding: true
+- name: "Dr. S. Stafford"
+  founding: true
