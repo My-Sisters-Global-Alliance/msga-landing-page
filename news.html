@@ -1,0 +1,89 @@
+---
+layout: default
+title: "News & Updates"
+permalink: /news/
+description: "The latest from MySGA (My Sisters Global Alliance): our Homecoming to Prom dress drive, the 2026 A Voice for La'Smockie memorial walk with LOADV, and the #CheckInSis Breast Cancer Awareness Month challenge."
+---
+<style>
+/* News & Updates page, page-local styles. Newest post first. */
+.news-list{display:flex;flex-direction:column;gap:32px;max-width:960px;margin:0 auto;}
+.news-post{display:grid;grid-template-columns:1fr;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden;}
+@media(min-width:760px){.news-post{grid-template-columns:0.9fr 1.1fr;}.news-post--text{grid-template-columns:1fr;}}
+.news-post-image{aspect-ratio:3/2;overflow:hidden;background:#F1EAF7;}
+@media(min-width:760px){.news-post-image{aspect-ratio:auto;min-height:100%;}}
+.news-post-image img{display:block;width:100%!important;height:100%!important;max-height:none;object-fit:cover;}
+.news-post-body{padding:30px 30px 32px;display:flex;flex-direction:column;gap:10px;}
+.news-post--text .news-post-body{border-top:6px solid var(--gold);}
+.news-date{font-size:0.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.news-post h2{color:var(--navy);font-size:clamp(1.3rem,2.4vw,1.6rem);margin:0;}
+.news-post p{color:var(--muted);font-size:0.98rem;line-height:1.7;margin:0;}
+.news-post .btn{align-self:flex-start;margin-top:8px;}
+.news-actions{display:flex;flex-wrap:wrap;gap:10px;}
+.news-post .btn-purple{background:#5B2A86;color:#fff;}
+.news-post .btn-purple:hover{background:#3B1A5A;color:#fff;}
+</style>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-visual-logo" style="display:flex;"><img src="{{ '/assets/logo-blue.png' | relative_url }}" alt="MySGA — My Sisters Global Alliance"></div>
+      <span class="eyebrow">What We've Been Up To</span>
+      <h1>News &amp; Updates</h1>
+      <p>The latest from our work in the community: campaigns, drives, walks, and the women and girls they serve.</p>
+    </div>
+  </section>
+
+  <section class="programs on-white">
+    <div class="wrap">
+      <div class="news-list">
+
+        <article class="news-post news-post--text" id="homecoming-to-prom">
+          <div class="news-post-body">
+            <span class="news-date">November 2026 &middot; Now Collecting</span>
+            <h2>Homecoming to Prom dress drive is underway</h2>
+            <p>We're collecting gently used homecoming and formal dresses, shoes, and accessories through January so 25 girls in Central Georgia can each choose a dress for free at our Prom Pop-Up in March 2027. Businesses and service providers can also help with alterations, hair and makeup, photography, and gift cards.</p>
+            <div class="news-actions">
+              <a href="mailto:info@mysistersglobal.org?subject=Homecoming%20to%20Prom%20Dress%20Donation" class="btn btn-gold">Donate a Dress</a>
+              <a href="{{ '/get-involved/' | relative_url }}" class="btn btn-ghost">Volunteer</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="news-post" id="la-smockie-walk-2026">
+          <div class="news-post-image">
+            <img src="{{ '/assets/dv-walk-2026-balloons.jpg' | relative_url }}" alt="Walkers in purple release purple balloons into the sky in honor of La'Smockie Fountain." loading="lazy" width="1600" height="1066">
+          </div>
+          <div class="news-post-body">
+            <span class="news-date">October 31, 2026</span>
+            <h2>We walked for La&rsquo;Smockie</h2>
+            <p>My Sisters walked with Loved Ones Against Domestic Violence (LOADV) in the 11th Annual Domestic Violence Awareness Memorial Walk in Macon, honoring La&rsquo;Smockie Fountain and standing with everyone affected by domestic violence. It was our fourth year walking with LOADV.</p>
+            <div class="news-actions">
+              <a href="{{ '/our-work/' | relative_url }}#la-smockie-walk" class="btn btn-purple">See the Photos</a>
+              <a href="{{ '/dv-awareness/' | relative_url }}" class="btn btn-ghost">Get Help</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="news-post" id="checkinsis-2026">
+          <div class="news-post-image">
+            <img src="{{ '/assets/checkinsis-campaign.jpg' | relative_url }}" alt="#CheckInSis Breast Cancer Awareness Month campaign graphic from My Sisters Global Alliance." loading="lazy">
+          </div>
+          <div class="news-post-body">
+            <span class="news-date">October 2026</span>
+            <h2>The #CheckInSis challenge for Breast Cancer Awareness Month</h2>
+            <p>For Breast Cancer Awareness Month we launched #CheckInSis: check in with yourself, then reach out to check on another woman. We also opened our Honor Wall to celebrate the survivors, warriors, and loved ones who remind us to keep checking in.</p>
+            <a href="{{ '/checkinsis/' | relative_url }}" class="btn btn-pink">Take the Challenge</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="programs-cta">
+        <p>Want to see where this work started? Explore years of service in Ghana, Flint, Orlando, Macon, and beyond.</p>
+        <a href="{{ '/legacy-in-action/' | relative_url }}" class="btn btn-gold">See Our Legacy in Action</a>
+      </div>
+      <div class="programs-cta">
+        <p>Help keep this work going.</p>
+        <a href="{{ '/donate/' | relative_url }}" class="btn btn-ghost">Donate</a>
+      </div>
+    </div>
+  </section>
