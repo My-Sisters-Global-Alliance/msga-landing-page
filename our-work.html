@@ -19,6 +19,42 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
 .active-campaign-body .btn{align-self:flex-start;margin-top:10px;}
 .active-campaign-card--stack .active-campaign-image,.active-campaign-card--stack .active-campaign-body{flex:1 1 100%;}
 .btn-purple{background:#5B2A86;color:#fff;box-shadow:var(--shadow-sm);}
+/* La'Smockie memorial walk recap */
+.dv-recap{padding:80px 0;background:#F1EAF7;scroll-margin-top:80px;}
+.dv-recap .section-head .eyebrow{color:#5B2A86;}
+.dv-recap .accent-bar{background:linear-gradient(90deg,#5B2A86,#B07CD8);}
+.dv-recap .section-head{margin-bottom:44px;}
+.dv-walk{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;}
+@media(min-width:860px){.dv-walk{grid-template-columns:0.85fr 1.15fr;align-items:start;}}
+.dv-walk-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);background:#F1EAF7;}
+.dv-walk-photo img{display:block;width:100%;height:auto;}
+.dv-walk-body .eyebrow{color:#5B2A86;}
+.dv-walk-body h2{color:var(--navy);font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 16px;}
+.dv-walk-body p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:16px;}
+.dv-walk-tagline{font-style:italic;color:#5B2A86 !important;font-size:1.08rem !important;font-weight:600;}
+.dv-quote{margin:4px 0 20px;padding:4px 0 4px 20px;border-left:4px solid #B07CD8;}
+.dv-quote p{font-size:1.08rem !important;font-style:italic;color:var(--navy) !important;margin-bottom:6px !important;}
+.dv-quote cite{font-style:normal;font-size:0.88rem;font-weight:700;color:#5B2A86;}
+.dv-walk-details{list-style:none;padding:18px 22px;margin:0 0 18px;background:#fff;border-left:4px solid #5B2A86;border-radius:var(--radius-md);display:flex;flex-direction:column;gap:8px;}
+.dv-walk-details li{color:var(--text);font-size:0.97rem;}
+.dv-walk-details strong{display:inline-block;min-width:64px;color:#5B2A86;}
+.dv-walk-details a{color:var(--navy);font-weight:600;}
+.dv-walk-body .btn{margin-top:6px;}
+.dv-gallery{display:grid;grid-template-columns:1fr;gap:20px;margin-top:40px;}
+@media(min-width:700px){.dv-gallery{grid-template-columns:repeat(6,1fr);}.dv-gallery figure{grid-column:span 2;}.dv-gallery figure:nth-child(n+7){grid-column:span 3;}}
+.dv-gallery figure{margin:0;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);background:#fff;aspect-ratio:3/2;}
+.dv-gallery img{display:block;width:100%;height:100%;object-fit:cover;}
+.dv-gallery figure.top img{object-position:center 20%;}
+.dv-purple-light{display:grid;grid-template-columns:1fr;gap:24px;align-items:center;margin-top:40px;background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-sm);}
+@media(min-width:860px){.dv-purple-light{grid-template-columns:1.2fr 1fr;padding:28px 32px;}}
+.dv-purple-light img{display:block;width:100%;height:auto;border-radius:var(--radius-md);}
+.dv-purple-light .eyebrow{color:#5B2A86;}
+.dv-purple-light h3{color:var(--navy);font-size:1.4rem;margin:8px 0 10px;}
+.dv-purple-light p{color:var(--muted);font-size:0.97rem;line-height:1.65;margin:0;}
+.dv-recap-give{margin-top:40px;text-align:center;background:#3B1A5A;color:#EDE4F5;border-radius:var(--radius-lg);padding:40px 28px;}
+.dv-recap-give h3{color:#fff;font-size:clamp(1.3rem,2.6vw,1.7rem);margin-bottom:10px;}
+.dv-recap-give p{max-width:620px;margin:0 auto 22px;line-height:1.7;}
+.active-campaign-card--text .active-campaign-body{flex:1 1 100%;border-top:6px solid var(--gold);}
 .btn-purple:hover{background:#3B1A5A;color:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md);}
 </style>
 
@@ -40,10 +76,10 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
         <h3 class="active-campaigns-title">Active Now</h3>
         <div class="active-campaigns-grid">
           {% for campaign in site.data.active_campaigns %}
-          <div class="active-campaign-card{% if campaign.layout == 'stack' %} active-campaign-card--stack{% endif %}">
-            <div class="active-campaign-image">
+          <div class="active-campaign-card{% if campaign.layout == 'stack' %} active-campaign-card--stack{% endif %}{% unless campaign.image %} active-campaign-card--text{% endunless %}">
+            {% if campaign.image %}<div class="active-campaign-image">
               <img src="{{ campaign.image | relative_url }}" alt="">
-            </div>
+            </div>{% endif %}
             <div class="active-campaign-body">
               <span class="active-campaign-category">{{ campaign.category }}</span>
               <h3>{{ campaign.title }}</h3>
@@ -120,10 +156,67 @@ description: "Explore the work MySGA (My Sisters Global Alliance) is developing 
             <h3>Domestic Violence Awareness</h3>
             <p>Helping young women recognize unhealthy relationships early, check in on each other, and connect with national hotlines&mdash;and partnering with Loved Ones Against Domestic Violence (LOADV) on the annual memorial walk for La&rsquo;Smockie Fountain.</p>
             <a class="program-link" href="{{ '/dv-awareness/' | relative_url }}">Get help &amp; learn more &rarr;</a>
+            <a class="program-link" href="#la-smockie-walk">See the 2026 walk photos &darr;</a>
           </div>
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="dv-recap" id="la-smockie-walk">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Domestic Violence Awareness &middot; Memorial Walk</span>
+        <div class="accent-bar"></div>
+        <h2>A Voice for La&rsquo;Smockie</h2>
+        <p>Thank you to everyone who wore purple and walked with us on October 31, 2026, in Macon.</p>
+      </div>
+      <div class="dv-walk">
+        <div class="dv-walk-photo">
+          <img src="{{ '/assets/dv-walk-2026-prayer.jpg' | relative_url }}" alt="Walk participants and community leaders stand in a line holding hands in prayer in front of a purple-draped table before the 2026 Domestic Violence Awareness Memorial Walk." loading="lazy" width="1086" height="724">
+        </div>
+        <div class="dv-walk-body">
+          <span class="eyebrow">In Memory</span>
+          <h2>Remembering La&rsquo;Smockie</h2>
+          <p class="dv-walk-tagline">Walking in her memory. Speaking for those who cannot.</p>
+          <p>La&rsquo;Smockie Fountain was a loving mother and, in her family&rsquo;s words, the life of the party&mdash;a people-person with a bright smile who loved to dance. After she lost her life to domestic violence in 2015, her family turned their grief into a mission: helping others recognize abuse and get out before it&rsquo;s too late.</p>
+          <blockquote class="dv-quote">
+            <p>&ldquo;She was such a lovely person, very beautiful, a great mother, and she absolutely loved to dance.&rdquo;</p>
+            <cite>Sharon Stafford, La&rsquo;Smockie&rsquo;s aunt</cite>
+          </blockquote>
+          <p>On Saturday, October 31, 2026, My Sisters walked alongside <strong>Loved Ones Against Domestic Violence (LOADV)</strong> in the 11th Annual Domestic Violence Awareness Memorial Walk in Macon. Together we honored La&rsquo;Smockie and stood with everyone affected by domestic violence. This was our fourth year walking with LOADV.</p>
+          <p>Thank you to every sister, family member, partner, and neighbor who wore purple and walked with us. Domestic violence doesn&rsquo;t end with October&mdash;keep sharing the hotlines on our <a href="{{ '/dv-awareness/' | relative_url }}" style="color:#5B2A86;font-weight:700;">Get Help</a> page and keep checking in on each other.</p>
+        </div>
+      </div>
+      <div class="dv-gallery" aria-label="Photos from the 2026 memorial walk">
+        <figure><img src="{{ '/assets/dv-walk-2026-balloons.jpg' | relative_url }}" alt="Walkers in purple release purple balloons into the sky in honor of La'Smockie, with a church steeple in the background." loading="lazy" width="1600" height="1066"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-walking.jpg' | relative_url }}" alt="Walkers in purple and My Sisters Global Alliance shirts walk down a tree-lined road during the memorial walk, with a police escort behind them." loading="lazy" width="1600" height="1096"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-crowd.jpg' | relative_url }}" alt="A crowd of walkers in purple shirts heads down the road together, seen from behind." loading="lazy" width="856" height="571"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-speaking.jpg' | relative_url }}" alt="Three women in My Sisters Global Alliance shirts address the crowd at the walk, beside purple balloons, as a sheriff's deputy stands by." loading="lazy" width="1600" height="1066"></figure>
+        <figure class="top"><img src="{{ '/assets/dv-walk-2026-remarks.jpg' | relative_url }}" alt="A woman in a lavender sweatsuit holds a microphone as she speaks to the crowd at the memorial walk." loading="lazy" width="1600" height="1122"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-welcome.jpg' | relative_url }}" alt="A woman in a My Sisters Global Alliance shirt shakes hands with a man in a cowboy hat at the walk." loading="lazy" width="1440" height="1080"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-road.jpg' | relative_url }}" alt="Walkers, including women in My Sisters Global Alliance shirts, make their way along the walk route with a police vehicle following." loading="lazy" width="856" height="571"></figure>
+        <figure><img src="{{ '/assets/dv-walk-2026-sisters.jpg' | relative_url }}" alt="Three smiling women in matching My Sisters Global Alliance shirts pose together at the walk." loading="lazy" width="1600" height="1038"></figure>
+      </div>
+      <div class="dv-purple-light">
+        <img src="{{ '/assets/purple-light-day-loadv.jpg' | relative_url }}" alt="LOADV Purple Light Day flyer: Switch your porch light or window bulb to purple on October 26. Stand with domestic violence survivors. In honor of LaSmockie Fountain, April 4, 1985 to May 23, 2015." loading="lazy" width="1284" height="628">
+        <div>
+          <span class="eyebrow">Every October 26</span>
+          <h3>Purple Light Day</h3>
+          <p>Each year on October 26, LOADV invites the community to switch a porch light or window bulb to purple to stand with domestic violence survivors and honor La&rsquo;Smockie Fountain. Mark your calendar for next year.</p>
+        </div>
+      </div>
+      <div class="dv-recap-give">
+        <h3>Help us reach the next young woman before it&rsquo;s too late.</h3>
+        <p>Your gift helps MySGA teach young women the warning signs, connect them to help, and keep showing up for La&rsquo;Smockie and every family affected by domestic violence.</p>
+        <a href="{{ '/donate/' | relative_url }}" class="btn btn-gold">Donate</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="programs on-white">
+    <div class="wrap">
       <div class="programs-cta">
         <p>See how this work has already shown up in Ghana, Flint, Orlando, Macon, and beyond.</p>
         <a href="{{ '/legacy-in-action/' | relative_url }}" class="btn btn-gold">See Our Legacy in Action</a>

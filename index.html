@@ -2,8 +2,6 @@
 layout: default
 permalink: /
 newsletter_script: true
-checkinsis_banner: true # October only — remove this line after October to take the banner down
-dv_banner: true # October only — remove this line after October to take the DV banner down
 ---
 <div class="hero-status-bar">
 <div class="wrap hero-status-inner">
@@ -28,8 +26,40 @@ Based in Georgia &bull; National Reach &bull; Global Vision
 </div>
 </div>
 <div class="hero-v3-image-col">
-<img src="https://images.pexels.com/photos/7951924/pexels-photo-7951924.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="A group of eight women and girls of different cultural and ethnic backgrounds standing arm in arm together, smiling warmly in a group portrait">
+<img src="{{ '/assets/dv-walk-2026-sisters.jpg' | relative_url }}" alt="Three smiling women in matching My Sisters Global Alliance shirts at the 2026 domestic violence awareness memorial walk in Macon" width="1600" height="1038">
 </div>
+</div>
+</div>
+</section>
+
+<section class="walk-highlight" id="walk-highlight">
+<style>
+.walk-highlight{padding:72px 0;background:#F1EAF7;}
+.walk-highlight .section-head .eyebrow{color:#5B2A86;}
+.walk-highlight .accent-bar{background:linear-gradient(90deg,#5B2A86,#B07CD8);}
+.walk-highlight-photos{display:grid;grid-template-columns:1fr;gap:16px;margin:8px 0 32px;}
+@media(min-width:700px){.walk-highlight-photos{grid-template-columns:repeat(3,1fr);}}
+.walk-highlight-photos figure{margin:0;aspect-ratio:3/2;overflow:hidden;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);}
+.walk-highlight-photos figure img{display:block;width:100%!important;height:100%!important;max-height:none;object-fit:cover;}
+.walk-highlight-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.walk-highlight .btn-purple{background:#5B2A86;color:#fff;}
+.walk-highlight .btn-purple:hover{background:#3B1A5A;color:#fff;}
+</style>
+<div class="wrap">
+<div class="section-head center">
+<span class="eyebrow">Recent Work &middot; Domestic Violence Awareness</span>
+<div class="accent-bar"></div>
+<h2>We walked for La&rsquo;Smockie</h2>
+<p>On October 31, My Sisters walked with Loved Ones Against Domestic Violence (LOADV) in Macon in memory of La&rsquo;Smockie Fountain, helping young women recognize abuse early and know where to turn. Your gift keeps this work going all year.</p>
+</div>
+<div class="walk-highlight-photos">
+<figure><img src="{{ '/assets/dv-walk-2026-balloons.jpg' | relative_url }}" alt="Walkers in purple release purple balloons into the sky in honor of La'Smockie." loading="lazy" width="1600" height="1066"></figure>
+<figure><img src="{{ '/assets/dv-walk-2026-walking.jpg' | relative_url }}" alt="Walkers in purple and My Sisters Global Alliance shirts walk down a tree-lined road during the memorial walk." loading="lazy" width="1600" height="1096"></figure>
+<figure><img src="{{ '/assets/dv-walk-2026-speaking.jpg' | relative_url }}" alt="Three women in My Sisters Global Alliance shirts address the crowd at the walk." loading="lazy" width="1600" height="1066"></figure>
+</div>
+<div class="walk-highlight-actions">
+<a href="{{ '/our-work/' | relative_url }}#la-smockie-walk" class="btn btn-purple">See the Walk</a>
+<a href="{{ '/donate/' | relative_url }}" class="btn btn-gold">Donate</a>
 </div>
 </div>
 </section>
